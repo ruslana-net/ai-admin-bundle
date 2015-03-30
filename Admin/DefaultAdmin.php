@@ -19,6 +19,10 @@ class DefaultAdmin extends Admin {
         '_sort_by' => 'position',
     );
 
+    protected $ExportFields=array();
+
+    protected $translationDomain = 'messages';
+
     /**
      * @param ContainerInterface $container
      */
@@ -42,5 +46,21 @@ class DefaultAdmin extends Admin {
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
+    }
+
+    /**
+     * Export fields
+     *
+     * @return array
+     */
+    public function getExportFields() {
+        $fields =  count($this->ExportFields) ? $this->ExportFields : parent::getExportFields();
+
+        $expFields = array();
+        foreach($fields as $field){
+            $expFields[$this->trans( ucfirst($field), array(), 'messages' )]=$field;
+        }
+
+        return $expFields;
     }
 } 

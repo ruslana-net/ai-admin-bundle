@@ -5,6 +5,9 @@
     <script type="text/javascript">
         jQuery('#sonata-ba-field-container-{{ id }}').on('sonata.add_element', function(){
             jQuery('#sonata-ba-field-container-{{ id }}').find('textarea.ckeditor').ckeditor();
+            jQuery(".datepicker").datepicker({
+                "dateFormat": "dd.mm.yy"
+            });
         });
     </script>
 {% endblock %}

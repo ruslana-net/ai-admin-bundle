@@ -1,0 +1,60 @@
+/* skin-black sidebar */
+.skin-black .sidebar {
+    border-bottom: 1px solid #18496a;
+}
+.skin-black .sidebar > .sidebar-menu > li {
+    border-top: 1px solid #18496a;
+    border-bottom: 0px solid #18496a;
+}
+.skin-black .sidebar > .sidebar-menu > li:first-of-type {
+    border-top: 1px solid #18496a;
+}
+.skin-black .sidebar > .sidebar-menu > li:first-of-type > a {
+    border-top: 0px solid #18496a;
+}
+.skin-black .sidebar > .sidebar-menu > li > a {
+    margin-right: 1px;
+}
+.skin-black .sidebar > .sidebar-menu > li > a:hover,
+.skin-black .sidebar > .sidebar-menu > li.active > a {
+    color: #f6f6f6;
+    background: #18496a;
+}
+.skin-black .sidebar > .sidebar-menu > li > .treeview-menu {
+    margin: 0 1px;
+    background: #18496a;
+}
+
+.skin-black .left-side {
+    background: #143c57;
+}
+
+.skin-black .logo {
+    background-color: #143c57;
+}
+
+.skin-black .logo:hover {
+    background-color: #18496a;
+}
+
+.sonata-ba-action {
+    margin-top:7px!important;
+}
+
+.ui-slider-range { background: #18496a; }
+.ui-slider-handle { border-color: #18496a; }
+
+.jqueryslider_number{
+    margin:0 0 3px;
+    background: none repeat scroll 0 0 #18496a;
+    color: #fff;
+    text-align: center;
+    width: 100px;
+    border-radius: 6px;
+    font-size:120%;
+}
+
+.contact_date.green{background: rgba(0, 128, 0, 0.47);color:#000;}
+.contact_date.hotRed{background:red;color:#000;}
+.contact_date.red{background: rgba(255, 0, 0, 0.53);color:#000;}
+.contact_date.yellow{background: rgba(255, 255, 0, 0.56);color:#000;}
