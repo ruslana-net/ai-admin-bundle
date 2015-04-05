@@ -194,6 +194,15 @@ security:
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
 
+###Add to file app/config/routing.yml
+```yml
+...
+ai_admin:
+    resource: "@AiAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+...
+```
+
 ## 3. Run
 ```bash
 php app/console doctrine:schema:create
