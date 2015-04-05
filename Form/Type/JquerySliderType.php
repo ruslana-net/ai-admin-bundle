@@ -14,11 +14,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class JquerySliderType extends AbstractType
 {
-    private $sliderOptions;
+    private $formOptions;
 
-    public function __construct(array $sliderOptions)
+    public function __construct(array $formOptions)
     {
-        $this->sliderOptions = $sliderOptions;
+        $this->formOptions = $formOptions;
     }
 
     /**
@@ -26,7 +26,7 @@ class JquerySliderType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['sliderOptions'] = $this->sliderOptions;
+        $view->vars['formOptions'] = $this->formOptions;
     }
 
     /**
@@ -41,6 +41,6 @@ class JquerySliderType extends AbstractType
      */
     public function getName()
     {
-        return 'ai_jqueryslider';
+        return 'ai_admin_jqueryslider';
     }
 }
