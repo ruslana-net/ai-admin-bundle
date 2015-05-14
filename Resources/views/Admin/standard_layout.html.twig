@@ -20,3 +20,35 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/form/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/css/AiAdminBundle.css') }}" />
 {% endblock %}
+
+{% block sonata_page_content_nav %}
+    {% if _tab_menu is not empty or _actions is not empty %}
+        <nav class="navbar navbar-default" role="navigation">
+            {% block tab_menu_navbar_header %}
+                {% if _navbar_title is not empty %}
+                    <div class="navbar-header">
+                        <span class="navbar-brand">{{ _navbar_title|raw }}</span>
+                    </div>
+                {% endif %}
+            {% endblock %}
+            <div class="container-fluid">
+                <div class="navbar-right">
+                    {% if _tab_menu is not empty %}
+                        {{ _tab_menu|raw }}
+                    {% endif %}
+                </div>
+
+                {% if _tab_menu is empty and _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown sonata-actions">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'link_actions'|trans({}, 'SonataAdminBundle') }} <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                {{ _actions|raw }}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
+    {% endif %}
+{% endblock sonata_page_content_nav %}

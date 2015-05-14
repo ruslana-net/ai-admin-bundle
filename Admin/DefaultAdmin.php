@@ -4,8 +4,12 @@ namespace Ai\AdminBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Knp\Menu\ItemInterface as MenuItemInterface;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Ai\AdminBundle\Entity\BeUser;
+
 
 class DefaultAdmin extends Admin {
     public $last_position = 0;
@@ -62,5 +66,48 @@ class DefaultAdmin extends Admin {
         }
 
         return $expFields;
+    }
+
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        $menu->addChild('Add new', array('uri' => $this->generateUrl('create')));
+
+        if ( $action != 'list' ) {
+            $menu->addChild('Back to list', array('uri' => $this->generateUrl('list')));
+        }
+
+        if ( $action == 'edit' && $this->hasRoute('show') )
+        {
+            $menu->addChild('Show',
+                array('uri' => $this->generateUrl('show', array('id' => $this->getRequest()->get('id'))))
+            );
+        }
+
+        if ( $action == 'show' && $this->hasRoute('edit') )
+        {
+            $menu->addChild('Edit',
+                array('uri' => $this->generateUrl('edit', array('id' => $this->getRequest()->get('id'))))
+            );
+        }
+    }
+
+    /**
+    * @return bool
+    */
+    public function hasAdminRole(){
+        if ( $this->getCurrentUser()->hasRole(BeUser::ROLE_SUPER_ADMIN)
+            || $this->getCurrentUser()->hasRole(BeUser::ROLE_ADMIN)
+        ){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return \Ai\AdminBundle\Entity\BeUser
+     */
+    protected function getCurrentUser(){
+        return $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
     }
 } 

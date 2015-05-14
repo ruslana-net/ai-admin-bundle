@@ -1,3 +1,22 @@
 'Dashboard': 'Рабочий стол'
 
 'Create New': 'Создать новый'
+
+'Be User': 'Пользователи'
+'Be User List': 'Пользователи'
+'Be User Edit': 'Редактирование'
+'Be User Create': 'Создать'
+'Be User Show': 'Просмотр'
+'Be User Delete': 'Подтверждение удаления'
+
+'Be Group': 'Группы'
+'Be Group List': 'Группы'
+'Be Group Edit': 'Редактирование'
+'Be Group Create': 'Создать'
+'Be Group Show': 'Просмотр'
+'Be Group Delete': 'Подтверждение удаления'
+
+'Add new': 'Добавить новую запись'
+'Back to list': 'Вернуться к списку'
+'Show': 'Просмотр записи'
+'Edit': 'Редактирование записи'

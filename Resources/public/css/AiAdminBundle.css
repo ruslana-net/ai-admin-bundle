@@ -58,3 +58,16 @@
 .contact_date.hotRed{background:red;color:#000;}
 .contact_date.red{background: rgba(255, 0, 0, 0.53);color:#000;}
 .contact_date.yellow{background: rgba(255, 255, 0, 0.56);color:#000;}
+
+.navbar-default .navbar-nav > li > a {
+    background: none repeat scroll 0 0 #18496a;
+    border-radius: 3px;
+    color: #fff!important;
+    margin: 10px 5px;
+    padding: 5px 15px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background: none repeat scroll 0 0 #143c57!important;
+    color: #fff!important;
+}
