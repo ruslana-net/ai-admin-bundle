@@ -54,3 +54,9 @@
 'Be Group Show': 'Просмотр'
 'Be Group Delete': 'Подтверждение удаления'
 
+'Send SMS': 'Отправить смс'
+'SMS Text': 'Текст для смс'
+'SMS send successful!': 'Смс сообщение успешно отправлено!'
+'Sms text is empty!': 'Поле текста для смс не заполнено!'
+'Elements is not select': 'Не выбранны контакты для отправки смс!'
+

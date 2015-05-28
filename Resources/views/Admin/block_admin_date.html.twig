@@ -1,0 +1,130 @@
+
+
+{% block block %}
+    {% set batchactions = admin.batchactions %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{{ settings.title }}</h3>
+        </div>
+        <div class="box-body">
+            {% if admin.hasRoute('batch') %}
+            <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+                <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
+            {% endif %}
+            <table class="table table-hover">
+                {% block table_header %}
+                    <thead>
+                            <tr class="sonata-ba-list-field-header">
+                                {% for field_description in admin.list.elements %}
+                                {% if admin.hasRoute('batch') and field_description.getOption('code') == '_batch' and batchactions|length > 0 %}
+                                <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
+                                <input type="checkbox" class="list_batch_checkbox">
+                                </th>
+                                {% elseif field_description.getOption('code') == '_select' %}
+                                <th class="sonata-ba-list-field-header sonata-ba-list-field-header-select"></th>
+                                {% elseif field_description.name == '_action' and app.request.isXmlHttpRequest %}
+                                {# Action buttons disabled in ajax view! #}
+                                {% elseif field_description.getOption('ajax_hidden') == true and app.request.isXmlHttpRequest %}
+                                {# Disable fields with 'ajax_hidden' option set to true #}
+                                {% else %}
+                                {% set sortable = false %}
+                                {% if field_description.options.sortable is defined and field_description.options.sortable %}
+                                {% set sortable             = true %}
+                                {% endif %}
+
+                                {% spaceless %}
+                                <th class="sonata-ba-list-field-header-{{ field_description.type}}">
+                                {{ admin.trans(field_description.label, {}, field_description.translationDomain) }}
+                                </th>
+                                {% endspaceless %}
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                {% endblock %}
+                <tbody>
+                    {% for object in admin.datagrid.results %}
+                        <tr>
+                            {% include admin.getTemplate('inner_list_row') %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                {% block table_footer %}
+                    <tfoot>
+                            <tr>
+                                <th colspan="{{ admin.list.elements|length - (app.request.isXmlHttpRequest ? (admin.list.has('_action') + admin.list.has('batch')) : 0) }}">
+                                    <textarea name="sms_text" placeholder="{{ 'SMS Text'|trans({}, 'SonataAdminBundle') }}" style="width:100%;"></textarea>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="{{ admin.list.elements|length - (app.request.isXmlHttpRequest ? (admin.list.has('_action') + admin.list.has('batch')) : 0) }}">
+                                    <div class="form-inline">
+                                        {% if not app.request.isXmlHttpRequest %}
+                                            {% if admin.hasRoute('batch') and batchactions|length > 0  %}
+                                                {% block batch %}
+                                                    <script>
+                                                        {% block batch_javascript %}
+                                                        jQuery(document).ready(function ($) {
+                                                            $('.list_batch_checkbox').on('ifChanged', function () {
+                                                                $(this)
+                                                                        .closest('table')
+                                                                        .find('td.sonata-ba-list-field-batch input[type="checkbox"]')
+                                                                        .iCheck($(this).is(':checked') ? 'check' : 'uncheck')
+                                                                ;
+                                                            });
+
+                                                            $('td.sonata-ba-list-field-batch input[type="checkbox"]')
+                                                                    .on('ifChanged', function () {
+                                                                        $(this)
+                                                                                .closest('tr')
+                                                                                .toggleClass('sonata-ba-list-row-selected', $(this).is(':checked'))
+                                                                        ;
+                                                                    })
+                                                                    .trigger('ifChanged')
+                                                            ;
+                                                        });
+                                                        {% endblock %}
+                                                    </script>
+
+                                                    {% block batch_actions %}
+                                                    {#<label class="checkbox" for="{{ admin.uniqid }}_all_elements">#}
+                                                            {#<input type="checkbox" name="all_elements" id="{{ admin.uniqid }}_all_elements">#}
+                                                        {#{{ 'all_elements'|trans({}, 'SonataAdminBundle') }}#}
+                                                        {#({{ admin.datagrid.pager.nbresults }})#}
+                                                        {#</label>#}
+
+                                                    <select name="action" style="width: auto; height: auto" class="form-control">
+                                                            {% for action, options in batchactions %}
+                                                                <option value="{{ action }}">{{ options.label }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                {% endblock %}
+                                                    <input type="submit" class="btn btn-small btn-primary" value="{{ 'btn_batch'|trans({}, 'SonataAdminBundle') }}">
+                                                {% endblock %}
+                                            {% endif %}
+
+                                            {#{% block pager_results %}#}
+                                            {#<div>#}
+                                            {#{% include admin.getTemplate('pager_results') %}#}
+                                            {#</div>#}
+                                            {#{% endblock %}#}
+                                        {% endif %}
+                                    </div>
+                                </th>
+                            </tr>
+
+                            {% block pager_links %}
+                                {% if admin.datagrid.pager.haveToPaginate() %}
+                                    {% include admin.getTemplate('pager_links') %}
+                                {% endif %}
+                            {% endblock %}
+
+                        </tfoot>
+                {% endblock %}
+            </table>
+            {% if admin.hasRoute('batch') %}
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
