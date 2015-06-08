@@ -40,7 +40,10 @@ class DefaultAdmin extends Admin {
      */
     public function setPositionService(PositionHandler $positionHandler)
     {
-//        $positionHandler->setPositionField(array('default' => 'position'));
+        if ( method_exists($positionHandler, 'setPositionField') ){
+            $positionHandler->setPositionField(array('default' => 'position'));
+        }
+
         $this->positionService = $positionHandler;
     }
 
