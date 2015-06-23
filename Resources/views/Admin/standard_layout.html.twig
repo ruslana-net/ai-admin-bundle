@@ -21,32 +21,71 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/css/AiAdminBundle.css') }}" />
 {% endblock %}
 
-{% block sonata_top_nav_menu %}
-    <div class="navbar-right">
-        <ul class="nav navbar-nav">
-            {% if admin is defined and admin.hasAdminRole() == true %}
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="{{ path('admin_ai_contacts_contact_list') }}">{{ 'Contact'|trans({}, admin.translationdomain) }}</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="{{ path('admin_ai_contacts_contact_create') }}">{{ 'Contact Add'|trans({}, admin.translationdomain) }}</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="{{ path('admin_beuser_list') }}">{{ 'Be User'|trans({}, admin.translationdomain) }}</a>
-                </li>
-            {% endif %}
+{% block sonata_nav %}
+    {% if admin_pool is defined %}
+        <nav class="navbar navbar-static-top" role="navigation">
 
-            <li class="dropdown user-menu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    {% include admin_pool.getTemplate('user_block') %}
-                </ul>
-            </li>
-        </ul>
-    </div>
-{% endblock %}
+                            <div class="navbar-left">
+                                {% block sonata_breadcrumb %}
+                                    {% if _breadcrumb is not empty or action is defined %}
+                                        <ol class="nav navbar-top-links breadcrumb">
+                                            {% if _breadcrumb is empty %}
+                                                {% if action is defined %}
+                                                    {% for menu in admin.breadcrumbs(action) %}
+                                                        {% if not loop.last  %}
+                                                            <li>
+                                                                {% if menu.uri is not empty %}
+                                                                    <a href="{{ menu.uri }}">{{ menu.label|raw }}</a>
+                                                                {% else %}
+                                                                    {{ menu.label }}
+                                                                {% endif %}
+                                                            </li>
+                                                        {% else %}
+                                                            <li class="active"><span>{{ menu.label }}</span></li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ _breadcrumb|raw }}
+                                            {% endif %}
+                                        </ol>
+                                    {% endif %}
+                                {% endblock sonata_breadcrumb %}
+                            </div>
+
+                            {% block sonata_top_nav_menu %}
+                                <div class="navbar-right">
+                                    <ul class="nav navbar-nav">
+                                        {% if admin is defined %}
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('admin_ai_contacts_contact_list') }}">{{ 'Contact'|trans({}, admin.translationdomain) }}</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('admin_ai_contacts_contact_create') }}">{{ 'Contact Add'|trans({}, admin.translationdomain) }}</a>
+                                            </li>
+                                            {% if admin is defined and admin.hasAdminRole() == true %}
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('admin_beuser_list') }}">{{ 'Be User'|trans({}, admin.translationdomain) }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% endif %}
+
+                                        <li class="dropdown user-menu">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-user">
+                                                {% include admin_pool.getTemplate('user_block') %}
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endblock %}
+                        </nav>
+    {% endif %}
+{% endblock sonata_nav %}
+
+
 
 
 
