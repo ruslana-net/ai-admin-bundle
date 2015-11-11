@@ -251,4 +251,6 @@ php app/console cache:clear
 ## 4. Add admin users
 ```bash
 php app/console fos:user:create
+php app/console fos:user:promote admin ROLE_SONATA_ADMIN
+php app/console fos:user:promote admin ROLE_SUPER_ADMIN
 ```
