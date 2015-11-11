@@ -1,0 +1,32 @@
+{
+	"name": "ai/adminbundle",
+	"type": "symfony-bundle",
+	"description": "AiCms Admin bundle",
+	"require": {
+		"php": ">=5.3.3",
+		"symfony/framework-bundle": "2.7",
+		"sonata-project/admin-bundle": "*",
+		"sonata-project/doctrine-orm-admin-bundle": "*",
+		"sonata-project/user-bundle": "*",
+		"sonata-project/cache": "^1.0",
+		"sonata-project/cache-bundle": "^2.2",
+		"predis/predis": "~0.8,<1.0",
+		"stof/doctrine-extensions-bundle": "v1.1.0",
+		"pixassociates/sortable-behavior-bundle": "0.1.*@dev",
+		"avalanche123/imagine-bundle": "v2.1"
+	},
+	"authors": [
+	  {
+		"name": "Ruslan Muriev",
+		"email": "ruslana.net@gmail.com"
+	  }
+	],
+	"autoload": {
+	  "psr-4": { "Ai\AdminBundle\\": "" }
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
