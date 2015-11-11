@@ -2,13 +2,14 @@
 
 ## 1. Install
 
-Clone to /path/you/project/src/Ai/AdminBundle
-
 ### Add to file composer.json
 
 ```json
-"ai/admin-bundle": "dev-master"
-
+"require": {
+    ...
+    "ai/admin-bundle": "dev-master"
+    ...
+},
 "repositories": [
     {
         "type": "vcs",
