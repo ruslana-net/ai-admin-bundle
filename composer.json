@@ -1,5 +1,5 @@
 {
-	"name": "ai/adminbundle",
+	"name": "ai/admin-bundle",
 	"type": "symfony-bundle",
 	"description": "AiCms Admin bundle",
 	"require": {
@@ -22,11 +22,11 @@
 	  }
 	],
 	"autoload": {
-	  "psr-4": { "Ai\\AdminBundle\\": "" }
+	  "psr-4": { "Ai\\AdminBundle\\": "src/" }
 	},
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.0.0-dev"
         }
     }
 }
