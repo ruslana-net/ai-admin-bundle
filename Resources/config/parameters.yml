@@ -1,7 +1,0 @@
-parameters:
-    form.ai_admin_jqueryslider:
-        orientation: "horizontal"
-        range: "min"
-        min: 0
-        max: 100
-        value: 0
