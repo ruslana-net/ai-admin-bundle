@@ -1,0 +1,71 @@
+
+
+{% block block %}
+    {% for group in groups %}
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">{{ group.label|trans({}, group.label_catalogue) }}</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <form role="search" class="sidebar-form" method="GET" action="/admin/search">
+                                    <div class="input-group custom-search-form">
+                                        <input type="text" placeholder="Поиск" class="form-control" value="" name="q">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-flat">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% for admin in group.items %}
+                            {% if admin.hasroute('create') and admin.isGranted('CREATE') or admin.hasroute('list') and admin.isGranted('LIST') %}
+                                <tr>
+                                            <td class="sonata-ba-list-label" width="40%">
+                                                {{ admin.label|trans({}, admin.translationdomain) }}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    {% if admin.hasroute('create') and admin.isGranted('CREATE') %}
+                                                        {% if admin.subClasses is empty %}
+                                                            <a class="btn btn-link btn-flat" href="{{ admin.generateUrl('create')}}">
+                                                                <i class="fa fa-plus-circle"></i>
+                                                                {% trans from 'SonataAdminBundle' %}link_add{% endtrans %}
+                                                            </a>
+                                                        {% else %}
+                                                            <a class="btn btn-link btn-flat dropdown-toggle" data-toggle="dropdown" href="#">
+                                                                <i class="fa fa-plus-circle"></i>
+                                                                {% trans from 'SonataAdminBundle' %}link_add{% endtrans %}
+                                                                <span class="caret"></span>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                {% for subclass in admin.subclasses|keys %}
+                                                                    <li>
+                                                                        <a href="{{ admin.generateUrl('create', {'subclass': subclass}) }}">{{ subclass }}</a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                                                        <a class="btn btn-link btn-flat" href="{{ admin.generateUrl('list')}}">
+                                                            <i class="glyphicon glyphicon-list"></i>
+                                                            {% trans from 'SonataAdminBundle' %}link_list{% endtrans -%}
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
