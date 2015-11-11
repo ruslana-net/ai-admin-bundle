@@ -7,15 +7,14 @@ Clone to /path/you/project/src/Ai/AdminBundle
 ### Add to file composer.json
 
 ```json
-"sonata-project/admin-bundle": "*",
-"sonata-project/doctrine-orm-admin-bundle": "*",
-"sonata-project/user-bundle": "*",
-"sonata-project/cache": "^1.0",
-"sonata-project/cache-bundle": "^2.2",
-"predis/predis": "~0.8,<1.0",
-"stof/doctrine-extensions-bundle": "v1.1.0",
-"pixassociates/sortable-behavior-bundle": "0.1.*@dev",
-"avalanche123/imagine-bundle": "v2.1"
+"ai/admin-bundle": "dev-master"
+
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "git@bitbucket.org:aivad-admin/aiadminbundle.git"
+    }
+],
 ```
 
 ### Bash command
