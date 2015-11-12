@@ -51,6 +51,7 @@ public function registerBundles()
 ## 2. CONFIGURATION
 
 ### Add to files app/config/parameters.yml AND ./parameters.yml.dist
+
 ```yml
 locale: ru
 dashboard_title: Dashboard title
@@ -59,6 +60,24 @@ domain: domain.ru
 ```
 
 ### Add to file app/config/config.yml
+```yml
+imports:
+    ...
+    - { resource: bundles.yml }
+
+framework:
+    ...
+    translator:      { fallbacks: ["%locale%"] }
+    ...
+
+twig:
+    ...
+    form_themes:
+        - AiAdminBundle:Form:div_layout.html.twig
+    ...
+```
+
+### Create and add to file app/config/bundles.yml
 ```yml
 #Doctrine extentions
 stof_doctrine_extensions:
