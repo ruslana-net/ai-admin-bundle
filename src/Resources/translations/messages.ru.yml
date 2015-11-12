@@ -50,3 +50,17 @@
 
 'List': 'Список'
 'Add': 'Добавить'
+
+'House': 'Дом'
+'Building': 'Строение/корпус'
+'Appartament': 'Квартира'
+
+'Full Address': 'Полный адрес'
+'Short Descr': 'Короткое описание'
+'Full Name': 'ФИО'
+'Status': 'Статус'
+'Status Title': 'Статус'
+
+'date_range_start': 'Дата от'
+'date_range_end': 'Дата до'
+
