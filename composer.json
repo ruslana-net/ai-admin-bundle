@@ -4,7 +4,7 @@
 	"description": "AiCms Admin bundle",
 	"require": {
 		"php": ">=5.3.3",
-		"symfony/framework-bundle": "2.7",
+		"symfony/framework-bundle": "2.7.*",
 		"sonata-project/admin-bundle": "2.3.7",
 		"sonata-project/doctrine-orm-admin-bundle": "2.3.3",
 		"sonata-project/user-bundle": "2.2.4",

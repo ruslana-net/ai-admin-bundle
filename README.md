@@ -40,7 +40,7 @@ public function registerBundles()
         new FOS\UserBundle\FOSUserBundle(),
         new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         new Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
-        new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+        new Liip\ImagineBundle\LiipImagineBundle(),
         new Ai\AdminBundle\AiAdminBundle(),
         ...
     );
@@ -161,11 +161,17 @@ sonata_cache:
 pix_sortable_behavior:
     db_driver: orm
 
-avalanche_imagine:
-    filters:
-        admin_thumb:
-            type:    thumbnail
-            options: { size: [120, 120], mode: outbound }
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }
 ```
 
 ### Add to file app/config/security.yml
