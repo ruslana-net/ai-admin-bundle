@@ -73,23 +73,25 @@ class DefaultAdmin extends Admin {
 
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        $menu->addChild('Add new', array('uri' => $this->generateUrl('create')));
+        $obj = ($childAdmin) ? $childAdmin : $this;
+
+        $menu->addChild('Add new', array('uri' => $obj->generateUrl('create')));
 
         if ( $action != 'list' ) {
-            $menu->addChild('Back to list', array('uri' => $this->generateUrl('list')));
+            $menu->addChild('Back to list', array('uri' => $obj->generateUrl('list')));
         }
 
-        if ( $action == 'edit' && $this->hasRoute('show') )
+        if ( $action == 'edit' && $obj->hasRoute('show') )
         {
             $menu->addChild('Show',
-                array('uri' => $this->generateUrl('show', array('id' => $this->getRequest()->get('id'))))
+                array('uri' => $obj->generateUrl('show', array('id' => $obj->getRequest()->get('id'))))
             );
         }
 
-        if ( $action == 'show' && $this->hasRoute('edit') )
+        if ( $action == 'show' && $obj->hasRoute('edit') )
         {
             $menu->addChild('Edit',
-                array('uri' => $this->generateUrl('edit', array('id' => $this->getRequest()->get('id'))))
+                array('uri' => $obj->generateUrl('edit', array('id' => $obj->getRequest()->get('id'))))
             );
         }
     }
