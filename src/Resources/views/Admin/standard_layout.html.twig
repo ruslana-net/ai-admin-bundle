@@ -19,5 +19,10 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/form/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/css/bootstrap_inspinia.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/aiadmin/css/AiAdminBundle.css') }}" />
+{% endblock %}
+
+{% block side_bar_after_nav %}
+
 {% endblock %}
