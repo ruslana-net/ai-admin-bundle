@@ -35,7 +35,7 @@ public function registerBundles()
         new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
         new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         new Sonata\CoreBundle\SonataCoreBundle(),
-        new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+        new Sonata\UserBundle\SonataUserBundle(),
         new Sonata\CacheBundle\SonataCacheBundle(),
         new FOS\UserBundle\FOSUserBundle(),
         new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
