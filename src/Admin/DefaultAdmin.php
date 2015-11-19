@@ -75,7 +75,9 @@ class DefaultAdmin extends Admin {
     {
         $obj = ($childAdmin) ? $childAdmin : $this;
 
-        $menu->addChild('Add new', array('uri' => $obj->generateUrl('create')));
+        if($obj->hasRoute('create')) {
+            $menu->addChild('Add new', array('uri' => $obj->generateUrl('create')));
+        }
 
         if ( $action != 'list' ) {
             $menu->addChild('Back to list', array('uri' => $obj->generateUrl('list')));
