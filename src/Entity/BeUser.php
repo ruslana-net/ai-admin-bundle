@@ -103,6 +103,13 @@ class BeUser extends BaseUser
     private $avatar;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hide_left_menu", type="boolean")
+     */
+    private $hideLeftMenu=false;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -320,6 +327,30 @@ class BeUser extends BaseUser
      */
     public function __toString(){
         return strval($this->getUsername());
+    }
+
+    /**
+     * Set hideLeftMenu
+     *
+     * @param boolean $hideLeftMenu
+     *
+     * @return BeUser
+     */
+    public function setHideLeftMenu($hideLeftMenu)
+    {
+        $this->hideLeftMenu = $hideLeftMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get hideLeftMenu
+     *
+     * @return boolean
+     */
+    public function getHideLeftMenu()
+    {
+        return $this->hideLeftMenu;
     }
 
     /**

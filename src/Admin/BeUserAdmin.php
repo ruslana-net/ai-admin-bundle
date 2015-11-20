@@ -81,6 +81,7 @@ class BeUserAdmin extends DefaultAdmin
             ->add('phone', null, array('label' => 'Телефон', 'required' => false))
             ->add('skype', null, array('label' => 'Скайп', 'required' => false))
             ->add('skype', null, array('label' => 'Скайп', 'required' => false))
+            ->add('hideLeftMenu', null, array('label' => 'Hide Left Menu', 'required' => false))
             ->add('enabled', null, array('label' => 'Включен', 'required' => false))
         ;
     }
@@ -98,6 +99,7 @@ class BeUserAdmin extends DefaultAdmin
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('phone', null, array('label' => 'Телефон'))
             ->add('skype', null, array('label' => 'Скайп'))
+            ->add('hideLeftMenu', null, array('label' => 'Hide Left Menu', 'required' => false))
         ;
     }
 }
