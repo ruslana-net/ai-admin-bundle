@@ -1,0 +1,10 @@
+<th{% if(is_diff|default(false)) %} class="diff"{% endif %}>{% block name %}{{ admin.trans(field_description.label, {}, field_description.translationDomain) }}{% endblock %}</th>
+<td>
+    <a href="/{{ object.getWebPath() }}" target="_blank">
+        {% if object.hasImg() and file_exists(object.getAbsolutePath()) %}
+            <img src="{{ object.getWebPath() | imagine_filter('admin_thumb') }}" />
+        {% else %}
+            <img src="{{ '/bundles/aiadmin/img/no-img.jpg' | imagine_filter('admin_thumb') }}" />
+        {% endif %}
+    </a>
+</td>

@@ -39,3 +39,8 @@ services:
             - "@sonata.admin.pool"
             - "@sonata.admin.helper"
             - "@validator"
+
+    ai_admin.twig.file.extension:
+        class: Ai\AdminBundle\Twig\Extension\FileExtension
+        tags:
+            - { name: twig.extension }

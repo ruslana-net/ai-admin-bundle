@@ -6,11 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use FOS\UserBundle\Model\GroupInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BeUser
  *
  * @ORM\Table(name="be_users")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity
  */
 class BeUser extends BaseUser
@@ -24,6 +27,8 @@ class BeUser extends BaseUser
         self::ROLE_ADMIN => 'Админ',
         self::ROLE_MANAGER => 'Менеджер',
     );
+
+    public static $UploadFolder='uploads/beusers';
 
     /**
      * @var integer
@@ -89,6 +94,13 @@ class BeUser extends BaseUser
      * @ORM\JoinTable(name="be_users_groups")
      */
     protected  $groups;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    private $avatar;
 
     /**
      * Get id
@@ -308,5 +320,167 @@ class BeUser extends BaseUser
      */
     public function __toString(){
         return strval($this->getUsername());
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return FeUser
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasImg()
+    {
+        return (bool)$this->getAvatar();
+    }
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    private $temp;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        // check if we have an old image avatar
+        if (is_file($this->getAbsolutePath())) {
+            // store the old name to delete after the update
+            $this->temp = $this->getAbsolutePath();
+        }
+
+        $this->setTstamp(new \Datetime('now'));
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return uniqid(rand(), true).'.'.$this->getFile()->guessExtension();
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            $this->avatar = $this->getFileName();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getAvatar()
+        );
+
+        // remove previous file
+        if (is_file($this->temp)) {
+            unlink($this->temp);
+        }
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (is_file($this->getAbsolutePath())) {
+            unlink($this->getAbsolutePath());
+        }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->getAvatar()
+            ? null
+            : $this->getUploadRootDir().'/'.$this->getAvatar();
+    }
+
+    /**
+     *
+     */
+    public function getWebPath()
+    {
+        return null === $this->getAvatar()
+            ? null
+            : $this->getUploadDir().'/'.$this->getAvatar();
+    }
+
+    /**
+     *
+     */
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     *
+     */
+    protected function getUploadDir()
+    {
+        return self::$UploadFolder;
     }
 }

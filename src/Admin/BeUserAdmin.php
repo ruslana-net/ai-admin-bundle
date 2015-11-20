@@ -39,6 +39,7 @@ class BeUserAdmin extends DefaultAdmin
             ->add('id')
             ->add('username', null, array('label' => 'Логин'))
             ->add('email', null, array('label' => 'Email'))
+            ->add('avatar', null, array('template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'))
             ->add('firstName', null, array('label' => 'Имя'))
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('phone', null, array('label' => 'Телефон'))
@@ -62,6 +63,7 @@ class BeUserAdmin extends DefaultAdmin
         $formMapper
             ->add('username', null, array('label' => 'Логин'))
             ->add('email', 'email', array('label' => 'Email'))
+            ->add('file', 'file', $this->getFileOptions(array('label' => 'Avatar Title', 'required' => false)))
             ->add('plainPassword', 'repeated', array(
                 'required' => false,
                 'type' => 'password',

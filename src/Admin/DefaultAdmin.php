@@ -117,4 +117,32 @@ class DefaultAdmin extends Admin {
     protected function getCurrentUser(){
         return $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
     }
+
+    /**
+     * @return array
+     */
+    public function getFileOptions($fieldOptions=array())
+    {
+        if($object = $this->getSubject())
+        {
+            if(file_exists($object->getAbsolutePath())){
+                // RedirectResponse object
+                $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $this->request,         // http request
+                        $object->getWebPath(),      // original image you want to apply a filter to
+                        'admin_thumb'              // filter defined in config.yml
+                    );
+
+                // string to put directly in the "src" of the tag <img>
+                $cacheManager = $this->container->get('liip_imagine.cache.manager');
+                $srcPath = $cacheManager->getBrowserPath($object->getWebPath(), 'admin_thumb');
+
+                $fieldOptions['help'] = '<img src="'.$srcPath.'" />';
+            }
+        }
+
+        return $fieldOptions;
+    }
 } 
