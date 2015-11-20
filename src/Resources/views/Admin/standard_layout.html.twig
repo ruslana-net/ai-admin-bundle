@@ -14,7 +14,7 @@
                 "dateFormat": "dd.mm.yy"
             });
 
-            {% if app.user.hideLeftMenu %}
+            {% if app.user is defined and app.user.hideLeftMenu is defined and app.user.hideLeftMenu == true %}
                 jQuery(".navbar-btn").click();
             {% endif %}
         });
