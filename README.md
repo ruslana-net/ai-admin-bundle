@@ -111,11 +111,13 @@ sonata_admin:
 #            sonata_app_recipes:
 #                label: Рецепты:
 #                label_catalogue: ~:
+#                icon: <i class="fa fa-cog"></i>
 #                items:
 #                    - app.admin.categories
 #                roles: [ROLE_SUPER_ADMIN, ROLE_SONATA_ADMIN, ROLE_MANAGER]
             ai_admins:
                 label: Администрирование:
+                icon: <i class="fa fa-cog"></i>
                 items:
                     - ai_admin.be_user
                     - ai_admin.be_group
@@ -188,7 +190,7 @@ liip_imagine:
     filter_sets:
         cache: ~
         my_thumb:
-            quality: 75
+            quality: 100
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
 ```
