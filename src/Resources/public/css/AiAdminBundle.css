@@ -71,3 +71,7 @@
     background: none repeat scroll 0 0 #2f4050!important;
     color: #fff!important;
 }
+
+.sonata-bc .breadcrumb li span {
+    display:inline-block;
+}
