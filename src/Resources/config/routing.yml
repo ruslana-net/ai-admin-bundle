@@ -18,9 +18,6 @@ sonata_cache_cache:
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
-
 ai_admin_retrieve_autocomplete_items:
     pattern: /core/add-autocomplete-items
     defaults: { _controller: 'ai_admin.controller.model_autocomplete:retrieveAutocompleteItemsAction' }

@@ -260,6 +260,9 @@ security:
 ###Add to file app/config/routing.yml
 ```yml
 ...
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+    
 ai_admin:
     resource: "@AiAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
