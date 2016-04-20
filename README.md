@@ -111,26 +111,14 @@ sonata_admin:
         layout: AiAdminBundle:Admin:standard_layout.html.twig
     dashboard:
         groups:
-#            sonata_app_recipes:
-#                label: Recipes:
-#                label_catalogue: ~:
-#                icon: <i class="fa fa-cog"></i>
-#                items:
-#                    - app.admin.categories
-#                roles: [ROLE_SUPER_ADMIN, ROLE_SONATA_ADMIN, ROLE_MANAGER]
             ai_admins:
-                label: Администрирование:
+                label: Administration:
                 icon: <i class="fa fa-cog"></i>
                 items:
                     - ai_admin.be_user
                     - ai_admin.be_group
                 roles: [ROLE_SUPER_ADMIN]
         blocks:
-#            -
-#                position: left
-#                type: sonata.admin.block.admin_list
-#                settings:
-#                    groups: [sonata_app_recipes]
             -
                 position: right
                 type: sonata.admin.block.admin_list
@@ -142,6 +130,8 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
 
 sonata_doctrine_orm_admin:
     entity_manager: ~
