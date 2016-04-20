@@ -13,7 +13,7 @@
 "repositories": [
     {
         "type": "vcs",
-        "url": "git@bitbucket.org:aivad-admin/aiadminbundle.git"
+        "url": "https://github.com/ruslana-net/ai-admin-bundle"
     }
 ],
 ```
