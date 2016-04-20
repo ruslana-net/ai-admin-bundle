@@ -274,7 +274,6 @@ ai_admin:
 php app/console doctrine:schema:create
 php app/console doctrine:schema:update --force
 php app/console assets:install web
-php app/console assetic:dump
 php app/console cache:clear 
 ```
 
@@ -283,16 +282,4 @@ php app/console cache:clear
 php app/console fos:user:create
 php app/console fos:user:promote admin ROLE_SONATA_ADMIN
 php app/console fos:user:promote admin ROLE_SUPER_ADMIN
-```
-
-## 5. Order by RAND()
-```php
-$qb = $this->em->getRepository('AiCmsUserBundle:FeUser')->createQueryBuilder('u');
-$qb
-    ->addSelect('RAND() as HIDDEN rand')
-    ->addOrderBy('rand')
-    ->setMaxResults($count)
-    ->where('u.id!=:u')
-    ->setParameter('u', $this->user->getId())
-;
 ```
