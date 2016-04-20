@@ -21,7 +21,7 @@ class BeGroupAdmin extends DefaultAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('name', null, array('label' => 'Группа'))
+            ->add('name', null)
         ;
     }
 
@@ -32,14 +32,14 @@ class BeGroupAdmin extends DefaultAdmin
     {
         $listMapper
             ->add('id')
-            ->add('name', null, array('label' => 'Группа'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('name', null)
+            ->add('_action', 'actions', [
+                'actions' =>[
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -49,12 +49,11 @@ class BeGroupAdmin extends DefaultAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array('label' => 'Группа'))
-            ->add('roles', 'choice', array(
+            ->add('name', null)
+            ->add('roles', 'choice', [
                 'choices' => BeUser::$ADMIN_ROLES,
-                'label' => 'Права доступа',
                 'multiple'  => true,
-            ))
+            ])
         ;
     }
 
@@ -65,7 +64,7 @@ class BeGroupAdmin extends DefaultAdmin
     {
         $showMapper
             ->add('id')
-            ->add('name', null, array('label' => 'Группа'))
+            ->add('name', null)
         ;
     }
 }

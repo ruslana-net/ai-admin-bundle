@@ -21,12 +21,12 @@ class BeUserAdmin extends DefaultAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('username', null, array('label' => 'Логин'))
-            ->add('email', null, array('label' => 'Email'))
-            ->add('firstName', null, array('label' => 'Имя'))
-            ->add('lastName', null, array('label' => 'Фамилия'))
-            ->add('phone', null, array('label' => 'Телефон'))
-            ->add('skype', null, array('label' => 'Скайп'))
+            ->add('username', null)
+            ->add('email', null)
+            ->add('firstName', null)
+            ->add('lastName', null)
+            ->add('phone', null)
+            ->add('skype', null)
         ;
     }
 
@@ -37,21 +37,21 @@ class BeUserAdmin extends DefaultAdmin
     {
         $listMapper
             ->add('id')
-            ->add('username', null, array('label' => 'Логин'))
-            ->add('email', null, array('label' => 'Email'))
-            ->add('avatar', null, array('template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'))
-            ->add('firstName', null, array('label' => 'Имя'))
-            ->add('lastName', null, array('label' => 'Фамилия'))
-            ->add('phone', null, array('label' => 'Телефон'))
-            ->add('skype', null, array('label' => 'Скайп'))
-            ->add('enabled', null, array('label' => 'Включен', 'editable' => true))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('username', null)
+            ->add('email', null)
+            ->add('avatar', null, ['template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'])
+            ->add('firstName', null)
+            ->add('lastName', null)
+            ->add('phone', null)
+            ->add('skype', null)
+            ->add('enabled', null, ['editable' => true])
+            ->add('_action', 'actions', [
+                'actions' =>[
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -61,28 +61,30 @@ class BeUserAdmin extends DefaultAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('username', null, array('label' => 'Логин'))
-            ->add('email', 'email', array('label' => 'Email'))
-            ->add('file', 'file', $this->getFileOptions(array('label' => 'Avatar Title', 'required' => false)))
-            ->add('plainPassword', 'repeated', array(
+            ->add('username', null)
+            ->add('email', 'email')
+            ->add('file', 'file', $this->getFileOptions([
+                'label' => 'form.label_avatar',
+                'required' => false]
+            ))
+            ->add('plainPassword', 'repeated', [
                 'required' => false,
                 'type' => 'password',
                 'invalid_message' => 'Введите пароль повторно.',
-                'options' => array('label' => 'Пароль'),
-            ))
-            ->add('groups', null, array('label' => 'Группа'))
-            ->add('roles', 'choice', array(
+                'options' => ['label' => 'form.label_password'],
+            ])
+            ->add('groups', null)
+            ->add('roles', 'choice', [
                 'choices' => BeUser::$ADMIN_ROLES,
-                'label' => 'Права доступа',
                 'multiple'  => true
-            ))
-            ->add('firstName', null, array('label' => 'Имя', 'required' => false))
-            ->add('lastName', null, array('label' => 'Фамилия', 'required' => false))
-            ->add('phone', null, array('label' => 'Телефон', 'required' => false))
-            ->add('skype', null, array('label' => 'Скайп', 'required' => false))
-            ->add('skype', null, array('label' => 'Скайп', 'required' => false))
-            ->add('hideLeftMenu', null, array('label' => 'Hide Left Menu', 'required' => false))
-            ->add('enabled', null, array('label' => 'Включен', 'required' => false))
+            ])
+            ->add('firstName', null, ['required' => false])
+            ->add('lastName', null, ['required' => false])
+            ->add('phone', null, ['required' => false])
+            ->add('skype', null, ['required' => false])
+            ->add('skype', null, ['required' => false])
+            ->add('hideLeftMenu', null, ['required' => false])
+            ->add('enabled', null, ['required' => false])
         ;
     }
 
@@ -93,13 +95,13 @@ class BeUserAdmin extends DefaultAdmin
     {
         $showMapper
             ->add('id')
-            ->add('username', null, array('label' => 'Логин'))
-            ->add('email', null, array('label' => 'Email'))
-            ->add('firstName', null, array('label' => 'Имя'))
-            ->add('lastName', null, array('label' => 'Фамилия'))
-            ->add('phone', null, array('label' => 'Телефон'))
-            ->add('skype', null, array('label' => 'Скайп'))
-            ->add('hideLeftMenu', null, array('label' => 'Hide Left Menu', 'required' => false))
+            ->add('username', null)
+            ->add('email', null)
+            ->add('firstName', null)
+            ->add('lastName', null)
+            ->add('phone', null)
+            ->add('skype', null)
+            ->add('hideLeftMenu', null, ['required' => false])
         ;
     }
 }

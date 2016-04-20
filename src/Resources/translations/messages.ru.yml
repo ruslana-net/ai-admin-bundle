@@ -1,69 +1,44 @@
-'Dashboard': 'Рабочий стол'
+# Security
+"Bad credentials.": Неправильное имя пользователя или пароль
+"Invalid CSRF token.": Ошибка CSRF, пожалуйста, обновите страницу.
+Forbidden: Доступ к разделу ограничен
 
-'Create New': 'Создать новый'
+# Admin config
+breadcrumb:
+    link_be_user_list: Пользователи админки
+    link_be_group_list: Группы пользователей
 
-'Be User': 'Пользователи'
-'Be User List': 'Пользователи'
-'Be User Edit': 'Редактирование'
-'Be User Create': 'Создать'
-'Be User Show': 'Просмотр'
-'Be User Delete': 'Подтверждение удаления'
+list: &lables
+    label_id: id
+    label_username: Логин
+    label_email: Email
+    label_avatar: Аватарка
+    label_name: Имя
+    label_first_name: Имя
+    label_last_name: Фамилия
+    label_phone: Телефон
+    label_skype: Skype
+    label_enabled: Включен
+    label_hide_left_menu: Скрыть левое меню
+    label_file: Файл
+    label_groups: Группы
+    label_roles: Роли
+    label_password: Пароль
+    label__action: ' '
 
-'Be Group': 'Группы'
-'Be Group List': 'Группы'
-'Be Group Edit': 'Редактирование'
-'Be Group Create': 'Создать'
-'Be Group Show': 'Просмотр'
-'Be Group Delete': 'Подтверждение удаления'
+filter:
+    << : *lables
 
-'Add new': 'Добавить новую запись'
-'Back to list': 'Вернуться к списку'
-'Show': 'Просмотр записи'
-'Edit': 'Редактирование записи'
-'Crdate': 'Дата создания'
-'Tstamp': 'Дата обновления'
-'Name': 'Название:'
-'Enabled': 'Включен:'
-'Action': 'Действие'
-'Created': 'Создал'
-'Name': 'Название'
-'Descr': 'Описание'
-'No Cash': 'Отключить кеш'
-'Cash Timour': 'Время кеша (сек.)'
-'Only Registered': 'Только для зарегистрированных'
-'Phone': 'Телефон'
-'Address': 'Адрес'
-'Latitude': 'Широта'
-'Longitude': 'Долгота'
-'Manager': 'Менеджер'
-'Slug': 'ЧПУ'
-'Type': 'Тип'
-'Price': 'Цена'
-'Price Type': 'Тип цены'
-'Discount Percent': 'Скидка в процентах'
-'Discount Price': 'Скидка в руб.'
-'Articul': 'Артикул'
-'Partnum': 'Партномер'
-'In Stock': 'В наличии'
-'Street': 'Улица'
-'Product Name': 'Название товара'
+show:
+    << : *lables
 
-'List': 'Список'
-'Add': 'Добавить'
+form:
+    << : *lables
 
-'House': 'Дом'
-'Building': 'Строение/корпус'
-'Appartament': 'Квартира'
-
-'Full Address': 'Полный адрес'
-'Short Descr': 'Короткое описание'
-'Full Name': 'ФИО'
-'Status': 'Статус'
-'Status Title': 'Статус'
-
-'date_range_start': 'Дата от'
-'date_range_end': 'Дата до'
-'Avatar': 'Аватарка'
-'Avatar Title': 'Аватарка'
-'Hide Left Menu': 'Скрывать левое меню'
-
+First: Первый
+Second: Второй
+Add new: Добавить новую запись
+Back to list: Вернуться к списку
+Show: Просмотр записи
+Edit: Редактирование записи
+Delete: Удалить

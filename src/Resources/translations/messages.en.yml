@@ -1,0 +1,44 @@
+# Security
+"Bad credentials.": Incorrect login or password
+"Invalid CSRF token.": Error CSRF, please reload the page.
+Forbidden: Access denied
+
+# Admin config
+breadcrumb:
+    link_be_user_list: Admin users
+    link_be_group_list: Admin user groups
+
+list: &lables
+    label_id: id
+    label_username: Username
+    label_email: Email
+    label_avatar: Avatar
+    label_name: Name
+    label_first_name: First name
+    label_last_name: Last name
+    label_phone: Phone
+    label_skype: Skype
+    label_enabled: Enabled
+    label_hide_left_menu: Hide left menu
+    label_file: File
+    label_groups: Groups
+    label_roles: Roles
+    label_password: Password
+    label__action: ' '
+
+filter:
+    << : *lables
+
+show:
+    << : *lables
+
+form:
+    << : *lables
+
+First: First
+Second: Second
+Add new: Add new
+Back to list: Back to list
+Show: Show
+Edit: Edit
+Delete: Удалить

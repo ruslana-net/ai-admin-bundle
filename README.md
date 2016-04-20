@@ -52,6 +52,8 @@ public function registerBundles()
 
 ### Add to files app/config/parameters.yml AND ./parameters.yml.dist
 
+Check locale in config.yml
+
 ```yml
 locale: ru
 dashboard_title: Dashboard title
@@ -81,7 +83,7 @@ twig:
 ```yml
 #Doctrine extentions
 stof_doctrine_extensions:
-    default_locale: %locale%
+    default_locale: "%locale%"
     translation_fallback: true
     orm:
         default:
@@ -101,15 +103,16 @@ fos_user:
 sonata_admin:
     title: "%dashboard_title%"
     options:
-            html5_validate: true
-            confirm_exit: true
-            use_select2: true
+        html5_validate: true
+        confirm_exit: true
+        use_select2: true
+        use_icheck: true
     templates:
         layout: AiAdminBundle:Admin:standard_layout.html.twig
     dashboard:
         groups:
 #            sonata_app_recipes:
-#                label: Рецепты:
+#                label: Recipes:
 #                label_catalogue: ~:
 #                icon: <i class="fa fa-cog"></i>
 #                items:

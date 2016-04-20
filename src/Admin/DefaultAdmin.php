@@ -145,4 +145,21 @@ class DefaultAdmin extends Admin {
 
         return $fieldOptions;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBatchActions()
+    {
+        $actions = array();
+
+        if ($this->hasRoute('delete') && $this->isGranted('DELETE')) {
+            $actions['delete'] = array(
+                'label'            => $this->trans('Delete', array(), $this->getTranslationDomain()),
+                'ask_confirmation' => true, // by default always true
+            );
+        }
+
+        return $actions;
+    }
 } 
