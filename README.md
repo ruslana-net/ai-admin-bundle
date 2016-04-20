@@ -189,7 +189,7 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        my_thumb:
+        admin_thumb:
             quality: 100
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
