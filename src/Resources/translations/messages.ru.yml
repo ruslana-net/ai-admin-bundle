@@ -8,7 +8,7 @@ breadcrumb:
     link_be_user_list: Пользователи админки
     link_be_group_list: Группы пользователей
 
-list: &lables
+list: &labels
     label_id: id
     label_username: Логин
     label_email: Email
@@ -27,13 +27,13 @@ list: &lables
     label__action: ' '
 
 filter:
-    << : *lables
+    << : *labels
 
 show:
-    << : *lables
+    << : *labels
 
 form:
-    << : *lables
+    << : *labels
 
 First: Первый
 Second: Второй
