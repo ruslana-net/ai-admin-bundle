@@ -77,9 +77,6 @@ list: &labels
     label_analitics_code: Код аналитики
     label_counter_code: Код счетчиков
     label_soc_code: Код виджета соц. сетей
-
-
-
     label__action: ' '
 
 filter:
@@ -91,6 +88,7 @@ show:
 form:
     << : *labels
 
+Administration: Администрирование
 First: Первый
 Second: Второй
 Add new: Добавить новую запись
@@ -101,3 +99,5 @@ Delete: Удалить
 Default: Основное
 СЕО: Настройки СЕО
 Other: Другие настройки
+date_range_start: От
+date_range_end: До

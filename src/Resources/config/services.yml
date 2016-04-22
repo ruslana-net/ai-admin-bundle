@@ -7,7 +7,7 @@ services:
                     name: sonata.admin
                     manager_type: orm
                     group: settings
-                    label: Пользователи админки
+                    label: breadcrumb.link_be_user_list
                     label_translator_strategy: sonata.admin.label.strategy.underscore
                     autoadmin: true
             calls:
@@ -22,7 +22,7 @@ services:
                 name: sonata.admin
                 manager_type: orm
                 group: settings
-                label: Группы пользователей
+                label: breadcrumb.link_be_group_list
                 label_translator_strategy: sonata.admin.label.strategy.underscore
                 autoadmin: true
         calls:
