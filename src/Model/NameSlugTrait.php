@@ -4,11 +4,11 @@ namespace Ai\AdminBundle\Model;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
-trait SlugTrait
+trait NameSlugTrait
 {
     /**
      * @var string
-     * @Gedmo\Slug(separator="_", style="default", updatable=true, unique=true, fields={"title"})
+     * @Gedmo\Slug(separator="_", style="default", updatable=true, unique=true, fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
