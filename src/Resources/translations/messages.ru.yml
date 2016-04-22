@@ -24,6 +24,62 @@ list: &labels
     label_groups: Группы
     label_roles: Роли
     label_password: Пароль
+    label_firstname: Имя
+    label_lastname: Фамилия
+    label_website: Сайт
+    label_marital_status: Семейный статус
+    label_gender: Пол
+    label_crdate: Дата создание
+    label_tstamp: Дата обновления
+    label_locked: Заблокирован
+    label_biography: Биография
+    label_locale: Локаль
+    label_timezone: Часовой пояс
+    label_facebook_uid: Facebook uid
+    label_facebook_name: Facebook имя
+    label_facebook_data: Facebook данные
+    label_twitter_uid: Twitter uid
+    label_twitter_name: Twitter имя
+    label_twitter_data: Twitter данные
+    label_gplus_uid: Gplus uid
+    label_gplus_name: Gplus имя
+    label_gplus_data: Gplus данные
+    label_settings: Настройки
+    label_descr: Описание
+    label_content: Контент
+    label_ceo_title: СЕО title
+    label_ceo_keywords: СЕО keywords
+    label_ceo_description: СЕО description
+    label_only_registered: Только для зарегистрированных
+    label_main_menu: Главном меню
+    label_top_menu: Верхнем меню
+    label_side_menu: Сайдбаре
+    label_footer_menu: Меню футера
+    label_template: Шаблон
+    label_css: Css класс
+    label_slug: ЧПУ
+    label_sitemap: Карта сайта
+    label_url: Ссылка
+    label_ext_url: Внешняя ссылка
+    label_no_cache: Не кешировать
+    label_cache_timeout: Timeout кеша
+    label_address: Адрес
+    label_logo: Лого
+    label_code: Код
+    label_slogan: Слоган
+    label_soc_odnk: Код однокласников
+    label_soc_fb: Код Фейсбука
+    label_soc_vk: Код вконтакте
+    label_soc_tw: Код твитера
+    label_soc_google: Код гугл
+    label_map_code: Код карты
+    label_online_help: Код онлайн помощника
+    label_analitics_code: Код аналитики
+    label_counter_code: Код счетчиков
+    label_soc_code: Код виджета соц. сетей
+
+
+
     label__action: ' '
 
 filter:
