@@ -3,7 +3,7 @@
 namespace Ai\AdminBundle\Model;
 
 
-class TitleTrait
+trait TitleTrait
 {
 
 }

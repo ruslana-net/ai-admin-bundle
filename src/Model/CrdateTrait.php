@@ -3,7 +3,7 @@
 namespace Ai\AdminBundle\Model;
 
 
-class CrdateTrait
+trait CrdateTrait
 {
     /**
      * @var \DateTime

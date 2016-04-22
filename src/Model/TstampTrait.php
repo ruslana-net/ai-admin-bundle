@@ -3,7 +3,7 @@
 namespace Ai\AdminBundle\Model;
 
 
-class TstampTrait
+trait TstampTrait
 {
     /**
      * @var \DateTime

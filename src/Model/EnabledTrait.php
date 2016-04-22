@@ -3,7 +3,7 @@
 namespace Ai\AdminBundle\Model;
 
 
-class EnabledTrait
+trait EnabledTrait
 {
     /**
      * @var boolean

@@ -3,7 +3,7 @@
 namespace Ai\AdminBundle\Model;
 
 
-class PositionTrait
+trait PositionTrait
 {
     /**
      * @var integer
