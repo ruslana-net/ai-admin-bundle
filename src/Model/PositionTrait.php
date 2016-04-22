@@ -2,6 +2,7 @@
 
 namespace Ai\AdminBundle\Model;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 
 trait PositionTrait
 {
