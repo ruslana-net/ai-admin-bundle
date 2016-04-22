@@ -77,6 +77,8 @@ list: &labels
     label_analitics_code: Код аналитики
     label_counter_code: Код счетчиков
     label_soc_code: Код виджета соц. сетей
+    label_paid: Платный
+    label_comment: Комментарий
     label__action: ' '
 
 filter:

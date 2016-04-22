@@ -54,6 +54,10 @@ class DefaultAdmin extends Admin {
             $datagridMapper->add('content');
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
+            $datagridMapper->add('comment');
+        }
+
         if($this->hasTrait('Ai\AdminBundle\Model\CrdateTrait')){
             $datagridMapper->add('crdate', 'doctrine_orm_date_range', array(), 'sonata_type_date_range',
                 array(
@@ -73,6 +77,10 @@ class DefaultAdmin extends Admin {
 
         if($this->hasTrait('Ai\AdminBundle\Model\EnabledTrait')){
             $datagridMapper->add('enabled');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PaidTrait')){
+            $datagridMapper->add('paid');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\CeoTrait')){
@@ -107,6 +115,10 @@ class DefaultAdmin extends Admin {
             $formMapper->add('content', null, array('attr'=>array('class'=>'ckeditor')));
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
+            $formMapper->add('comment');
+        }
+
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){
             //TODO
         }
@@ -121,6 +133,10 @@ class DefaultAdmin extends Admin {
 
         if($this->hasTrait('Ai\AdminBundle\Model\EnabledTrait')){
             $formMapper->add('enabled');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PaidTrait')){
+            $formMapper->add('paid');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\OnlyRegisteredTrait')){
@@ -174,6 +190,10 @@ class DefaultAdmin extends Admin {
         if($this->hasTrait('Ai\AdminBundle\Model\EnabledTrait')){
             $listMapper->add('enabled', null, ['editable' => true]);
         }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PaidTrait')){
+            $listMapper->add('paid', null, ['editable' => true]);
+        }
         
         if($this->configureListWithourActions === false){
             self::configureListAction($listMapper);
@@ -226,6 +246,10 @@ class DefaultAdmin extends Admin {
             $showMapper->add('content', null, array('attr'=>array('class'=>'ckeditor')));
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
+            $showMapper->add('comment');
+        }
+
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){
             //TODO
         }
@@ -240,6 +264,10 @@ class DefaultAdmin extends Admin {
 
         if($this->hasTrait('Ai\AdminBundle\Model\EnabledTrait')){
             $showMapper->add('enabled');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PaidTrait')){
+            $showMapper->add('paid');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\OnlyRegisteredTrait')){
