@@ -19,13 +19,13 @@ trait NameTrait
     {
         return (string) $this->getName();
     }
-    
+
     /**
      * Set name
      *
      * @param string $name
      *
-     * @return Category
+     * @return $this
      */
     public function setName($name)
     {

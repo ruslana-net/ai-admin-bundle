@@ -17,7 +17,7 @@ trait DescrTrait
      *
      * @param string $descr
      *
-     * @return Category
+     * @return $this
      */
     public function setDescr($descr)
     {

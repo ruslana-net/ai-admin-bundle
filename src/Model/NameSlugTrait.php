@@ -17,7 +17,7 @@ trait NameSlugTrait
      * Set slug
      *
      * @param string $slug
-     * @return Page
+     * @return $this
      */
     public function setSlug($slug)
     {

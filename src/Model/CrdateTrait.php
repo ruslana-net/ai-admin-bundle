@@ -17,7 +17,7 @@ trait CrdateTrait
      * Set crdate
      *
      * @param \DateTime $crdate
-     * @return Page
+     * @return $this
      */
     public function setCrdate($crdate)
     {

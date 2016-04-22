@@ -17,7 +17,7 @@ trait EnabledTrait
      * Set enabled
      *
      * @param boolean $enabled
-     * @return Page
+     * @return $this
      */
     public function setEnabled($enabled)
     {

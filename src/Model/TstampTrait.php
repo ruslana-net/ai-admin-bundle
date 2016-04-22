@@ -17,7 +17,7 @@ trait TstampTrait
      * Set tstamp
      *
      * @param \DateTime $tstamp
-     * @return Page
+     * @return $this
      */
     public function setTstamp($tstamp)
     {

@@ -24,7 +24,7 @@ trait TitleTrait
      * Set title
      *
      * @param string $title
-     * @return Page
+     * @return $this
      */
     public function setTitle($title)
     {

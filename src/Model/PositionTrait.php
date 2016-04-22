@@ -17,7 +17,7 @@ trait PositionTrait
      * Set position
      *
      * @param integer $position
-     * @return Page
+     * @return $this
      */
     public function setPosition($position)
     {
