@@ -13,6 +13,14 @@ trait TitleTrait
     private $title;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getTitle();
+    }
+
+    /**
      * Set title
      *
      * @param string $title
