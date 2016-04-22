@@ -58,6 +58,10 @@ class DefaultAdmin extends Admin {
             $datagridMapper->add('comment');
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
+            $datagridMapper->add('price');
+        }
+
         if($this->hasTrait('Ai\AdminBundle\Model\CrdateTrait')){
             $datagridMapper->add('crdate', 'doctrine_orm_date_range', array(), 'sonata_type_date_range',
                 array(
@@ -117,6 +121,10 @@ class DefaultAdmin extends Admin {
 
         if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
             $formMapper->add('comment');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
+            $formMapper->add('price');
         }
 
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){
@@ -187,6 +195,10 @@ class DefaultAdmin extends Admin {
             $listMapper->add('descr');
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
+            $listMapper->add('price');
+        }
+
         if($this->hasTrait('Ai\AdminBundle\Model\EnabledTrait')){
             $listMapper->add('enabled', null, ['editable' => true]);
         }
@@ -248,6 +260,10 @@ class DefaultAdmin extends Admin {
 
         if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
             $showMapper->add('comment');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
+            $showMapper->add('price');
         }
 
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){

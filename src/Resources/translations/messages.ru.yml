@@ -79,6 +79,7 @@ list: &labels
     label_soc_code: Код виджета соц. сетей
     label_paid: Платный
     label_comment: Комментарий
+    label_price: Стоимость
     label__action: ' '
 
 filter:
