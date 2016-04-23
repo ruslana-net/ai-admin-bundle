@@ -192,7 +192,7 @@ class DefaultAdmin extends Admin {
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\DescrTrait')){
-            $listMapper->add('descr');
+            $listMapper->add('descr', 'html');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
@@ -251,15 +251,15 @@ class DefaultAdmin extends Admin {
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\DescrTrait')){
-            $showMapper->add('descr', null, array('attr'=>array('class'=>'ckeditor')));
+            $showMapper->add('descr', 'html', array('attr'=>array('class'=>'ckeditor')));
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\ContentTrait')){
-            $showMapper->add('content', null, array('attr'=>array('class'=>'ckeditor')));
+            $showMapper->add('content', 'html', array('attr'=>array('class'=>'ckeditor')));
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\CommentTrait')){
-            $showMapper->add('comment');
+            $showMapper->add('comment', 'html');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
