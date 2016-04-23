@@ -164,7 +164,7 @@ class DefaultAdmin extends Admin {
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\NameSlugTrait')){
-            $formMapper->with('CEO')->add('slug')->end();
+            $formMapper->with('CEO')->add('slug', null, ['required' => false])->end();
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\TitleSlugTrait')){
