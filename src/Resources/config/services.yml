@@ -11,8 +11,8 @@ services:
                     label_translator_strategy: sonata.admin.label.strategy.underscore
                     autoadmin: true
             calls:
-                - [ setContainer, [ @service_container ] ]
-                - [ setPositionService, [@pix_sortable_behavior.position]]
+                - [ setContainer, [ "@service_container" ] ]
+                - [ setPositionService, ["@pix_sortable_behavior.position"]]
 
     ai_admin.be_group:
         class: Ai\AdminBundle\Admin\BeGroupAdmin
@@ -26,8 +26,20 @@ services:
                 label_translator_strategy: sonata.admin.label.strategy.underscore
                 autoadmin: true
         calls:
-            - [ setContainer, [ @service_container ] ]
-            - [ setPositionService, [@pix_sortable_behavior.position]]
+            - [ setContainer, [ "@service_container" ] ]
+            - [ setPositionService, ["@pix_sortable_behavior.position"]]
+
+    ai_admi.upload_listener:
+            class: Ai\AdminBundle\EventListener\UploaderListener
+            tags:
+                - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: onUpload }
+
+    ai_admin.form.type.image_uploader:
+        class: Ai\AdminBundle\Form\Type\ImageUploaderType
+        arguments:
+            - "%form.ai_admin_image_uploader%"
+        tags:
+            - { name: form.type, alias: ai_admin_image_uploader }
 
     ai_admin.form.type.jqueryslider:
         class: Ai\AdminBundle\Form\Type\JquerySliderType

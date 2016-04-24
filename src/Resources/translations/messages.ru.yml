@@ -82,6 +82,14 @@ list: &labels
     label_price: Стоимость
     label_parent : Родитель
     label__action: ' '
+    label_select_image: Выберите катинку
+    label_drop_image: Перетащить картинку сюда
+    label_cancel_image: Отменить
+    label_delete_image: Удалить
+    label_select_file: Выберите файл
+    label_drop_file: Перетащить картинку сюда
+    label_cancel_file: Отменить
+    label_delete_file: Удалить
 
 filter:
     << : *labels

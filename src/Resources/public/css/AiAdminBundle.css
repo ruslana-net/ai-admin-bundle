@@ -76,3 +76,19 @@
     display:inline-block;
     min-height:10px;
 }
+
+ul.qq-upload-list-selector li {
+    position:relative;
+}
+.qq-uploader .fa-upload{
+    margin-right:7px;
+}
+.qq-upload-cancel .fa-times {
+    margin-right:5px;
+}
+
+.qq-upload-cancel{
+    position:absolute;
+    top:10px;
+    right:10px;
+}

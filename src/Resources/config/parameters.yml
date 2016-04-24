@@ -5,3 +5,6 @@ parameters:
         min: 0
         max: 100
         value: 0
+
+    form.ai_admin_image_uploader:
+        test: 1
