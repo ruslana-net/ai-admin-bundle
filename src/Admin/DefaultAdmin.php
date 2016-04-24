@@ -269,9 +269,9 @@ class DefaultAdmin extends Admin
                 'show' => [],
                 'edit' => [],
                 'delete' => [],
-//                'move' => [
-//                    'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
-//                ],
+                'move' => [
+                    'template' => 'AiAdminBundle:Action:_sort.html.twig'
+                ],
             ],
         ];
 
@@ -402,7 +402,7 @@ class DefaultAdmin extends Admin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-//        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
+        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
     }
 
     /**
