@@ -403,10 +403,6 @@ class DefaultAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
 //        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
-//        $collection->add('children', $this->getRouterIdParameter() . '/list');
-//        $collection->add('edit', $this->getRouterIdParameter().'/edit');
-//        $collection->add('delete', $this->getRouterIdParameter().'/delete');
-//        $collection->add('show', $this->getRouterIdParameter().'/show');
     }
 
     /**

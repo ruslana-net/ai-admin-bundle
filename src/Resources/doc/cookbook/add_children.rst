@@ -1,0 +1,56 @@
+Add children
+============
+
+
+1. Add self children
+----------------------
+
+Add to services.yml
+
+.. code-block:: yml
+    ai_consultation.admin.category:
+        class: Ai\ConsultationBundle\Admin\CategoryAdmin
+        arguments: [~, Ai\ConsultationBundle\Entity\Category, AiAdminBundle:Admin]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: consultation
+                label: breadcrumb.link_category_list
+                label_translator_strategy: sonata.admin.label.strategy.underscore
+                autoadmin: true
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ addChild, ['@ai_consultation.admin.category.child']]
+            - [ setAdminIcon, [ '<i class="glyphicon glyphicon-share"></i>' ] ]
+
+    ai_consultation.admin.category.child:
+        class: Ai\ConsultationBundle\Admin\CategoryChildAdmin
+        arguments: [~, Ai\ConsultationBundle\Entity\Category, AiAdminBundle:Admin]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: consultation
+                label: breadcrumb.link_category_list
+                label_translator_strategy: sonata.admin.label.strategy.underscore
+                autoadmin: true
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ setAdminIcon, [ '<i class="glyphicon glyphicon-share"></i>' ] ]
+
+Then create the admin class copy and put $baseRouteName
+
+.. code-block:: php
+
+    class CategoryAdmin extends DefaultAdmin
+    {
+        protected $baseRouteName = 'category';
+        protected $baseRoutePattern = 'consultant/category';
+
+The admin class copy:
+
+.. code-block:: php
+
+    class CategoryChildAdmin extends DefaultAdmin
+    {
