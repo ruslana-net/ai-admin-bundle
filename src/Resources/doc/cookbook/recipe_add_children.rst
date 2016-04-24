@@ -43,6 +43,18 @@ Add to services.yml
             - [ setContainer, [ "@service_container" ] ]
             - [ setAdminIcon, [ '<i class="glyphicon glyphicon-share"></i>' ] ]
 
+Add to entity class
+
+.. code-block:: php
+
+    use Ai\AdminBundle\Model\OneToManySelf;
+
+    class Category
+    {
+        use //...
+            OneToManySelf
+        ;
+
 Then create the admin class copy and put it $baseRouteName
 
 .. code-block:: php

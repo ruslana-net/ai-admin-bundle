@@ -8,4 +8,4 @@ Cookbook
     :maxdepth: 1
     :numbered:
 
-    cookbook/add_children
+    cookbook/recipe_add_children
