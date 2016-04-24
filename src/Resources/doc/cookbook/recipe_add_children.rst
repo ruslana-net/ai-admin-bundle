@@ -72,10 +72,11 @@ The admin class copy:
     {
 
 
-1. Add another children
-----------------------
+2. Add another children
+-----------------------
 
 Add to service.yml
+
 .. code-block:: yaml
 
     # app/config/services.yml
