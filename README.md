@@ -41,6 +41,7 @@ public function registerBundles()
         new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         new Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
         new Liip\ImagineBundle\LiipImagineBundle(),
+        new Oneup\UploaderBundle\OneupUploaderBundle(),
         new Ai\AdminBundle\AiAdminBundle(),
         ...
     );
