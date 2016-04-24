@@ -452,7 +452,7 @@ class DefaultAdmin extends Admin
             );
         }
 
-        if( $this->container->get('request')->get('id') ){
+        if( $this->container && $this->container->get('request')->get('id') ){
             $menu->addChild(
                 'Back to parent',
                 array('uri' => $this->getRouteGenerator()->generateUrl($this, 'list'))
