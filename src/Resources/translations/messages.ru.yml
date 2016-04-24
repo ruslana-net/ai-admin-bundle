@@ -80,6 +80,7 @@ list: &labels
     label_paid: Платный
     label_comment: Комментарий
     label_price: Стоимость
+    label_parent : Родитель
     label__action: ' '
 
 filter:
@@ -96,6 +97,7 @@ First: Первый
 Second: Второй
 Add new: Добавить новую запись
 Back to list: Вернуться к списку
+Back to parent: Вернуться обратно
 Show: Просмотр записи
 Edit: Редактирование записи
 Delete: Удалить

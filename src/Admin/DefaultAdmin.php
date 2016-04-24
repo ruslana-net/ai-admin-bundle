@@ -12,10 +12,12 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Ai\AdminBundle\Intarface\AdminIconIntarface;
 use Ai\AdminBundle\Entity\BeUser;
 
-
-class DefaultAdmin extends Admin {
+class DefaultAdmin extends Admin
+    implements AdminIconIntarface
+{
     public $last_position = 0;
 
     protected $container;
@@ -34,6 +36,33 @@ class DefaultAdmin extends Admin {
     protected $configureListWithourActions=false;
 
     protected static $classTraites=[];
+
+    protected $adminIcon;
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * //TODO implement intarface
+     * @param $adminIcon
+     */
+    public function setAdminIcon($adminIcon)
+    {
+        $this->adminIcon = $adminIcon;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdminIcon()
+    {
+        return $this->adminIcon;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -217,18 +246,26 @@ class DefaultAdmin extends Admin {
      */
     protected function configureListAction(ListMapper $listMapper)
     {
+        $options = [
+            'actions' => [
+                'show' => [],
+                'edit' => [],
+                'delete' => [],
+                'move' => [
+                    'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
+                ],
+            ],
+        ];
+        if($this->getChildren()){
+
+        }
+
+        if($this->getSelfParentId() === null){
+            $options['actions']['children'] = ['template' => 'AiAdminBundle:Action:children.html.twig'];
+        }
+
         if(!$listMapper->has('_action')) {
-            $listMapper
-                ->add('_action', 'actions', array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'delete' => array(),
-                        'move' => array(
-                            'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
-                        ),
-                    )
-                ));
+            $listMapper->add('_action', 'actions', $options);
         }
     }
 
@@ -334,14 +371,6 @@ class DefaultAdmin extends Admin {
     }
 
     /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
      * @param PositionHandler $positionHandler
      */
     public function setPositionService(PositionHandler $positionHandler)
@@ -377,6 +406,11 @@ class DefaultAdmin extends Admin {
         return $expFields;
     }
 
+    /**
+     * @param MenuItemInterface $menu
+     * @param $action
+     * @param AdminInterface|null $childAdmin
+     */
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         $obj = ($childAdmin) ? $childAdmin : $this;
@@ -402,12 +436,49 @@ class DefaultAdmin extends Admin {
                 array('uri' => $obj->generateUrl('edit', array('id' => $obj->getRequest()->get('id'))))
             );
         }
+
+        if($this->getSelfParentId()){
+            $menu->addChild(
+                'Back to parent',
+                array('uri' => $this->getRouteGenerator()->generateUrl($this, 'list'))
+            );
+        }
+    }
+
+    /**
+     * @param string $context
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query **/
+        $query = parent::createQuery($context);
+
+        if($this->getSelfParentId() === null){
+            $query
+                ->andWhere(
+                    $query->expr()->isNull($query->getRootAliases()[0] . '.parent')
+                );
+        }
+
+        return $query;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentAssociationMapping()
+    {
+        if($this->getSelfParentId()){
+            return 'parent';
+        }
     }
 
     /**
     * @return bool
     */
-    public function hasAdminRole(){
+    public function hasAdminRole()
+    {
         if ( $this->getCurrentUser()->hasRole(BeUser::ROLE_SUPER_ADMIN)
             || $this->getCurrentUser()->hasRole(BeUser::ROLE_ADMIN)
         ){
@@ -418,16 +489,49 @@ class DefaultAdmin extends Admin {
     }
 
     /**
-     * @return \Ai\AdminBundle\Entity\BeUser
+     * @return array
      */
-    protected function getCurrentUser(){
-        return $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+    public function getBatchActions()
+    {
+        $actions = array();
+
+        if ($this->hasRoute('delete') && $this->isGranted('DELETE')) {
+            $actions['delete'] = array(
+                'label'            => $this->trans('Delete', array(), $this->getTranslationDomain()),
+                'ask_confirmation' => true, // by default always true
+            );
+        }
+
+        return $actions;
+    }
+
+    /**
+     * @param string $action
+     * @return array
+     */
+    public function getBreadcrumbs($action)
+    {
+        $breadcrumbs = parent::getBreadcrumbs($action);
+
+        if ($this->getSelfParentId()) {
+            $object = $this->getModelManager()->find($this->getClass(), $this->getSelfParentId());
+            if($object){
+                $newMenu = $this->menuFactory->createItem(
+                    (string) $object,
+                    array('uri' => $this->hasRoute('list') && $this->isGranted('LIST') ? $this->generateUrl('list', array('id' => $this->getSelfParentId())) : null)
+                );
+
+                $breadcrumbs[] = $newMenu;
+            }
+        }
+
+        return $breadcrumbs;
     }
 
     /**
      * @return array
      */
-    public function getFileOptions($fieldOptions=array())
+    protected function getFileOptions($fieldOptions=array())
     {
         if($object = $this->getSubject())
         {
@@ -453,20 +557,41 @@ class DefaultAdmin extends Admin {
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Ai\AdminBundle\Entity\BeUser
      */
-    public function getBatchActions()
+    protected function getCurrentUser()
     {
-        $actions = array();
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+    }
 
-        if ($this->hasRoute('delete') && $this->isGranted('DELETE')) {
-            $actions['delete'] = array(
-                'label'            => $this->trans('Delete', array(), $this->getTranslationDomain()),
-                'ask_confirmation' => true, // by default always true
-            );
+    /**
+     * @return bool|null
+     */
+    protected function getSelfParentId()
+    {
+        if($this->hasTrait('Ai\AdminBundle\Model\OneToManySelf'))
+        {
+            if($this->getFilterParameter('parent')){
+                return $this->getFilterParameter('parent')['value'];
+            } else {
+                return null;
+            }
         }
 
-        return $actions;
+        return false;
+    }
+
+    /*
+     * Get datagrid filter parameter by name
+     */
+    protected function getFilterParameter($name)
+    {
+        if( array_key_exists($name, $this->getFilterParameters()))
+        {
+            return $this->getFilterParameters()[$name];
+        }
+
+        return null;
     }
 
     /**
@@ -475,7 +600,7 @@ class DefaultAdmin extends Admin {
      * @param $traitClass
      * @return mixed
      */
-    public function hasTrait($traitClass)
+    protected function hasTrait($traitClass)
     {
         return array_key_exists($traitClass, $this->getClassUses());
     }
@@ -485,7 +610,7 @@ class DefaultAdmin extends Admin {
      *
      * @return array
      */
-    public function getClassUses()
+    protected function getClassUses()
     {
         if(!empty(self::$classTraites)){
             return self::$classTraites;
