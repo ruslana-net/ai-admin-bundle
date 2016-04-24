@@ -3,7 +3,7 @@ Add children
 
 
 1. Add self children
-----------------------
+--------------------
 
 Add to services.yml
 
@@ -73,6 +73,7 @@ The admin class copy:
 
 
 2. Add another children
+-----------------------
 
 Add to service.yml
 
