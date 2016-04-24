@@ -7,7 +7,11 @@ Add children
 
 Add to services.yml
 
-.. code-block:: yml
+.. code-block:: yaml
+
+    # app/config/services.yml
+    
+    # ...
     ai_consultation.admin.category:
         class: Ai\ConsultationBundle\Admin\CategoryAdmin
         arguments: [~, Ai\ConsultationBundle\Entity\Category, AiAdminBundle:Admin]
@@ -39,7 +43,7 @@ Add to services.yml
             - [ setContainer, [ "@service_container" ] ]
             - [ setAdminIcon, [ '<i class="glyphicon glyphicon-share"></i>' ] ]
 
-Then create the admin class copy and put $baseRouteName
+Then create the admin class copy and put it $baseRouteName
 
 .. code-block:: php
 
