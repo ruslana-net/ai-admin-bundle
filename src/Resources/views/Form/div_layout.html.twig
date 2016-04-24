@@ -169,6 +169,9 @@
                     request: {
                         endpoint: "{{ oneup_uploader_endpoint(options.oneup_uploader_id) }}"
                     },
+                    session: {
+                        endpoint: $('#album-icon').data('endpoint')
+                    },
                     callbacks: {
                         onCancel: function(id, name){
                             $.post("{{ oneup_uploader_cancel(options.oneup_uploader_id) }}");

@@ -63,10 +63,11 @@ class BeUserAdmin extends DefaultAdmin
         $formMapper
             ->add('username', null)
             ->add('email', 'email')
-//            ->add('file', 'file', $this->getFileOptions([
+//            ->add('avatar', 'file', $this->getFileOptions([
+//                'oneup_uploader_id' => 'be_user_avatar',
 //                'label' => 'form.label_avatar',
-//                'required' => false]
-//            ))
+//                'required' => false
+//            ]))
             ->add('avatar', 'ai_admin_image_uploader', [
                 'oneup_uploader_id' => 'be_user_avatar',
                 'required' => false,

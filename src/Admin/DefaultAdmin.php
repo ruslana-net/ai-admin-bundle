@@ -520,6 +520,10 @@ class DefaultAdmin extends Admin
         return $actions;
     }
 
+    protected function getFileThumb()
+    {
+        
+    }
     /**
      * @return array
      */
