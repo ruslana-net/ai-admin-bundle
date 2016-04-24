@@ -70,3 +70,24 @@ The admin class copy:
 
     class CategoryChildAdmin extends DefaultAdmin
     {
+
+
+1. Add another children
+----------------------
+
+Add to service.yml
+.. code-block:: yaml
+
+    # app/config/services.yml
+
+    # ...
+    ai_consultation.admin.category:
+        //...
+        calls:
+            - [ addChild, ['@ai_consultation.admin.theme']]
+
+    ai_consultation.admin.theme:
+        //...
+        calls:
+            - [ setAdminIcon, [ '<i class="glyphicon glyphicon-list"></i>' ] ] #child menu icon
+
