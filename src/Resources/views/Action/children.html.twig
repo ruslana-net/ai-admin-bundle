@@ -1,5 +1,8 @@
-<a class="btn btn-sm btn-default" href="{{ admin.generateUrl('list', {'filter': {'parent': {'value': object.id}}}) }}" title="{{ admin.getLabel() |trans }}">
-{% if admin.getAdminIcon is defined  %}
-    {{ admin.getAdminIcon()|raw }}
-{% endif %}
-</a>
+{% for child in admin.getChildren() %}
+    <a class="btn btn-sm btn-default" href="{{ child.generateUrl('list', {'id': object.id}) }}" title="{{ child.getLabel() |trans }}">
+        {% if child.getAdminIcon is defined  %}
+            {{ child.getAdminIcon()|raw }}
+        {% endif %}
+    </a>
+{% endfor %}
+

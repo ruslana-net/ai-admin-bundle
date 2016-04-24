@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,6 +22,7 @@ class DefaultAdmin extends Admin
     public $last_position = 0;
 
     protected $container;
+
     protected $positionService;
 
     protected $datagridValues = array(
@@ -48,7 +50,23 @@ class DefaultAdmin extends Admin
     }
 
     /**
-     * //TODO implement intarface
+     * Add params to route
+     *
+     * @return array
+     */
+//    public function getPersistentParameters()
+//    {
+//        if (!$this->getRequest()) {
+//            return array();
+//        }
+//
+//        return array(
+//            'provider' => $this->getRequest()->get('provider'),
+//            'context'  => $this->getRequest()->get('context', 'default'),
+//        );
+//    }
+
+    /**
      * @param $adminIcon
      */
     public function setAdminIcon($adminIcon)
@@ -251,16 +269,13 @@ class DefaultAdmin extends Admin
                 'show' => [],
                 'edit' => [],
                 'delete' => [],
-                'move' => [
-                    'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
-                ],
+//                'move' => [
+//                    'template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig'
+//                ],
             ],
         ];
-        if($this->getChildren()){
 
-        }
-
-        if($this->getSelfParentId() === null){
+        if($this->hasChildren()){
             $options['actions']['children'] = ['template' => 'AiAdminBundle:Action:children.html.twig'];
         }
 
@@ -387,7 +402,11 @@ class DefaultAdmin extends Admin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
+//        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
+//        $collection->add('children', $this->getRouterIdParameter() . '/list');
+//        $collection->add('edit', $this->getRouterIdParameter().'/edit');
+//        $collection->add('delete', $this->getRouterIdParameter().'/delete');
+//        $collection->add('show', $this->getRouterIdParameter().'/show');
     }
 
     /**
@@ -437,7 +456,7 @@ class DefaultAdmin extends Admin
             );
         }
 
-        if($this->getSelfParentId()){
+        if( $this->container->get('request')->get('id') ){
             $menu->addChild(
                 'Back to parent',
                 array('uri' => $this->getRouteGenerator()->generateUrl($this, 'list'))
@@ -454,7 +473,7 @@ class DefaultAdmin extends Admin
         /** @var QueryBuilder $query **/
         $query = parent::createQuery($context);
 
-        if($this->getSelfParentId() === null){
+        if($this->hasSelfChildren()){
             $query
                 ->andWhere(
                     $query->expr()->isNull($query->getRootAliases()[0] . '.parent')
@@ -469,7 +488,7 @@ class DefaultAdmin extends Admin
      */
     public function getParentAssociationMapping()
     {
-        if($this->getSelfParentId()){
+        if($this->hasSelfParent()){
             return 'parent';
         }
     }
@@ -503,29 +522,6 @@ class DefaultAdmin extends Admin
         }
 
         return $actions;
-    }
-
-    /**
-     * @param string $action
-     * @return array
-     */
-    public function getBreadcrumbs($action)
-    {
-        $breadcrumbs = parent::getBreadcrumbs($action);
-
-        if ($this->getSelfParentId()) {
-            $object = $this->getModelManager()->find($this->getClass(), $this->getSelfParentId());
-            if($object){
-                $newMenu = $this->menuFactory->createItem(
-                    (string) $object,
-                    array('uri' => $this->hasRoute('list') && $this->isGranted('LIST') ? $this->generateUrl('list', array('id' => $this->getSelfParentId())) : null)
-                );
-
-                $breadcrumbs[] = $newMenu;
-            }
-        }
-
-        return $breadcrumbs;
     }
 
     /**
@@ -565,20 +561,38 @@ class DefaultAdmin extends Admin
     }
 
     /**
-     * @return bool|null
+     * @return bool
+     */
+    protected function hasSelfParent()
+    {
+        return (
+            $this->hasTrait('Ai\AdminBundle\Model\OneToManySelf')
+            && $this->getParent()
+            && $this->getParent()->getClass() === $this->getClass()
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasSelfChildren()
+    {
+        return ($this->hasTrait('Ai\AdminBundle\Model\OneToManySelf') && !$this->getParent());
+    }
+
+    /**
+     * Return null if admin class has trait OneToManySelf but not parentId
+     * Return parent id
+     * Return false if admin class hasn't trait OneToManySelf
+     *
+     * @return int|bool|null
      */
     protected function getSelfParentId()
     {
-        if($this->hasTrait('Ai\AdminBundle\Model\OneToManySelf'))
+        if($this->hasSelfParent())
         {
-            if($this->getFilterParameter('parent')){
-                return $this->getFilterParameter('parent')['value'];
-            } else {
-                return null;
-            }
+            return $this->getParent()->getSubject()->getId();
         }
-
-        return false;
     }
 
     /*
