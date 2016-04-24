@@ -628,4 +628,16 @@ class DefaultAdmin extends Admin
 
         return self::$classTraites = class_uses($this->getClass());
     }
+
+    /**
+     * @param \Sonata\AdminBundle\Admin\FieldDescriptionInterface $fieldDescription
+     */
+    public function attachAdminClass(\Sonata\AdminBundle\Admin\FieldDescriptionInterface $fieldDescription)
+    {
+        try {
+            parent::attachAdminClass($fieldDescription);
+        } catch(\RuntimeException $e) {
+            //Catch Unable to found a valid admin for the class: %s, get too many admin
+        }
+    }
 } 
