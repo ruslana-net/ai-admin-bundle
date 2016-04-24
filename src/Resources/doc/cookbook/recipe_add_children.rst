@@ -73,9 +73,9 @@ The admin class copy:
 
 
 2. Add another children
-----------------------
 
 Add to service.yml
+
 .. code-block:: yaml
 
     # app/config/services.yml
