@@ -90,6 +90,15 @@ list: &labels
     label_drop_file: Перетащить картинку сюда
     label_cancel_file: Отменить
     label_delete_file: Удалить
+    label_category: Категория
+    label_theme: Тема
+    label_post: Пост
+    label_image: Картинка
+    label_subscribe_price: Тариф на подписку
+    label_date_from: Дата от
+    label_date_to: Дата до
+    label_test: Тест
+    label_user : Пользователь
 
 filter:
     << : *labels

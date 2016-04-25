@@ -15,9 +15,9 @@ trait ImageTrait
     /**
      * @var string
      *
-     * @ORM\Column(name="imageExt", type="string", length=100)
+     * @ORM\Column(name="imageExt", type="string", length=100, nullable=true)
      */
-    private $imageExt;
+    private $imageExt='';//TODO
 
     /**
      * Set image
