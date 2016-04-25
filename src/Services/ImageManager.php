@@ -2,7 +2,6 @@
 
 namespace Ai\AdminBundle\Services;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Imagine\Data\DataManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
@@ -13,47 +12,33 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImageManager
 {
-
-    /**
-     * @Inject("liip_imagine.cache.manager")
-     * @var \Liip\ImagineBundle\Imagine\Cache\CacheManager
-     */
     protected $imageCacheManager;
-
-    /**
-     * @Inject("liip_imagine.data.manager")
-     * @var \Liip\ImagineBundle\Imagine\Data\DataManager
-     */
     protected $imageDataManager;
-
-    /**
-     * @Inject("liip_imagine.filter.manager")
-     * @var \Liip\ImagineBundle\Imagine\Filter\FilterManager
-     */
     protected $imageFilterManager;
-
-    /**
-     * @Inject("oneup_uploader.orphanage_manager")
-     * @var \Oneup\UploaderBundle\Uploader\Orphanage\OrphanageManager
-     */
     protected $orphanageManager;
-
-    /**
-     * @Inject("filesystem")
-     * @var \Symfony\Component\Filesystem\Filesystem
-     */
-    protected $fs;
-
-    /**
-     * @var string
-     */
     protected $rootDir;
 
     /**
+     * @param CacheManager $imageCacheManager
+     * @param DataManager $imageDataManager
+     * @param FilterManager $imageFilterManager
+     * @param OrphanageManager $orphanageManager
      * @param string $rootDir
      */
-    public function __construct($rootDir)
+    public function __construct(
+        CacheManager $imageCacheManager,
+        DataManager $imageDataManager,
+        FilterManager $imageFilterManager,
+        OrphanageManager $orphanageManager,
+        Filesystem $fs,
+        $rootDir
+    )
     {
+        $this->imageCacheManager = $imageCacheManager;
+        $this->imageDataManager = $imageDataManager;
+        $this->imageFilterManager = $imageFilterManager;
+        $this->orphanageManager = $orphanageManager;
+        $this->fs = $fs;
         $this->rootDir = $rootDir;
     }
 
@@ -130,7 +115,11 @@ class ImageManager
             'uuid'               => $image->getBasename(),
             'name'               => $fileName,
             'size'               => $image->getSize(),
+            'path'               => $imagePath,
+            'type'               => $type,
             'thumbnailUrl'       => $thumb,
+            'uploaded'           => false,
+            'deleted'            => false,
         ];
     }
 
@@ -144,7 +133,7 @@ class ImageManager
     public function getImageThumb($type, $fileName)
     {
         $imagePath = $this->getImagePath($type, $fileName);
-        return $this->imageFilter($imagePath, self::$THUMB_FILTERS[$type]);
+        return $this->imageFilter($imagePath, $type);
     }
 
     /**
@@ -154,14 +143,7 @@ class ImageManager
      */
     public function getImagePath($type, $fileName)
     {
-        if(
-            !array_key_exists($type, self::$IMAGE_PATHS) ||
-            !array_key_exists($type, self::$THUMB_FILTERS)
-        ){
-            throw new NotFoundHttpException('Image type not found');
-        }
-
-        $imagePath = self::$IMAGE_PATHS[$type].'/'.$fileName;
+        $imagePath = $this->getUploadPath($type).'/'.$fileName;
 
         if(!$this->fs->exists($imagePath)){
             throw new NotFoundHttpException('Image not found!');
@@ -176,8 +158,7 @@ class ImageManager
      */
     public function getAbsoluteUploadPath($type)
     {
-        $uploadPath = self::$IMAGE_PATHS[$type];
-        return $this->rootDir . '/../web/' . $uploadPath;
+        return $this->rootDir . '/../web/' . $this->getUploadPath($type);
     }
 
     /**
@@ -186,8 +167,16 @@ class ImageManager
      */
     public function getAbsoluteThumbPath($type)
     {
-        $uploadPath = self::$IMAGE_THUMB_PATHS[$type];
-        return $this->rootDir . '/../web/' . $uploadPath . '/thumbs';
+        return $this->rootDir . '/../web/' . $this->getUploadPath($type) . '/thumbs';
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    protected function getUploadPath($type)
+    {
+        return 'uploads/' . $type;
     }
 
     /**

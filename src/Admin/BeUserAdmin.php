@@ -39,7 +39,11 @@ class BeUserAdmin extends DefaultAdmin
             ->add('id')
             ->add('username', null)
             ->add('email', null)
-            ->add('avatar', null, ['template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'])
+            ->add('avatar', 'ai_admin_image_uploader', [
+                'oneup_uploader_id' => 'be_user_avatar',
+                'required' => false,
+                'template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'
+            ])
             ->add('firstName', null)
             ->add('lastName', null)
             ->add('phone', null)

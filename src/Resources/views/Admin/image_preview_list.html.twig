@@ -1,9 +1,8 @@
 <td>
-    <a href="/{{ object.getWebPath() }}" target="_blank">
-        {% if object.hasImg() and file_exists(object.getAbsolutePath()) %}
-            <img src="{{ object.getWebPath() | imagine_filter('admin_thumb') }}" />
-        {% else %}
-            <img src="{{ '/bundles/aiadmin/img/no-img.jpg' | imagine_filter('admin_thumb') }}" />
-        {% endif %}
-    </a>
+    {% if value and field_description.options.oneup_uploader_id is defined %}
+        {% set path = "/uploads/"~field_description.options.oneup_uploader_id~"/"~value %}
+        <img src="{{ path | imagine_filter('admin_thumb') }}" />
+    {% else %}
+        <img src="{{ '/bundles/aiadmin/img/no-img.jpg' | imagine_filter('admin_thumb') }}" />
+    {% endif %}
 </td>

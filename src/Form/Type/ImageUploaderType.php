@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
+use Symfony\Component\Form\FormBuilderInterface;
+use Ai\AdminBundle\Services\ImageManager;
+use Ai\AdminBundle\Form\DataTransformer\ImageToStringTransformer;
 
 /**
  * ImageUploaderType
@@ -15,11 +18,14 @@ use Symfony\Component\Form\Exception\InvalidArgumentException;
  */
 class ImageUploaderType extends AbstractType
 {
+    private $imageManager;
+
     private $formOptions;
 
-    public function __construct(array $formOptions)
+    public function __construct(ImageManager $imageManager, array $formOptions)
     {
         $this->formOptions = $formOptions;
+        $this->imageManager = $imageManager;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -41,6 +47,15 @@ class ImageUploaderType extends AbstractType
 
         $view->vars['formOptions'] = $this->formOptions;
         $view->vars['options'] = $options;
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->addViewTransformer(new ImageToStringTransformer($this->imageManager, $options));
     }
 
     /**

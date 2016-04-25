@@ -145,14 +145,16 @@
     {% endspaceless %}
 {% endblock ai_admin_model_autocomplete_widget %}
 
-
 {% block ai_admin_image_uploader_widget %}
     {% spaceless %}
         {{ form_widget(form, {'attr': {'class': 'hidden'}}) }}
 
         <script type="text/javascript">
             $( document ).ready(function() {
-                $("#uploader-{{ form.vars.id }}").fineUploader({
+                var el = $('#{{ form.vars.id }}');
+                var uploadItem = $("#uploader-{{ form.vars.id }}");
+
+                uploadItem.fineUploader({
                     debug: {% if app.debug %}1{% else %}0{% endif %},
                     template: 'qq-template-{{ form.vars.id }}',
                     multiple: false,
@@ -169,19 +171,29 @@
                     request: {
                         endpoint: "{{ oneup_uploader_endpoint(options.oneup_uploader_id) }}"
                     },
-                    session: {
-                        endpoint: $('#album-icon').data('endpoint')
-                    },
                     callbacks: {
                         onCancel: function(id, name){
                             $.post("{{ oneup_uploader_cancel(options.oneup_uploader_id) }}");
+                            if(el.val() != ''){
+                                var imageData = JSON.parse(el.val());
+                                imageData[0]['deleted'] = true;
+                                el.val(JSON.stringify(imageData));
+                            }
                         }
-                    }
-                }).on('error', function (event, id, name, reason) {
-                    // do something
+                    },
                 }).on('complete', function (event, id, name, responseJSON) {
-                    $('#{{ form.vars.id }}').val(responseJSON.qqfile);
+                    var data = [{
+                        'type': "{{ options.oneup_uploader_id }}",
+                        'name': responseJSON.qqfile,
+                        'uploaded': true,
+                        'deleted': false
+                    }];
+                    $('#{{ form.vars.id }}').val(JSON.stringify(data));
                 });
+
+                if(el.val() != ''){
+                    uploadItem.fineUploader('addInitialFiles', JSON.parse(el.val()));
+                }
             });
         </script>
 
@@ -212,7 +224,7 @@
 
                         <button class="btn btn-danger qq-upload-cancel-selector qq-upload-cancel">
                             <i class="fa fa-times"></i>
-                            <span>{{ 'form.label_cancel_image' |trans }}</span>
+                            <span>{{ 'form.label_delete_image' |trans }}</span>
                         </button>
                     </li>
                 </ul>

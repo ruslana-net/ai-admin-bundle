@@ -30,39 +30,24 @@ services:
             - [ setPositionService, ["@pix_sortable_behavior.position"]]
 
     ai_gallery.image_manager:
-            class: Ai\AdminBundle\Services\ImageManager
-            arguments:
-                - '%kernel.root_dir%'
-
-    amg_admin_logger.events.post_persist:
-        class: Ai\AdminBundle\EventListener\AdminEventListener
-        tags:
-            - { name: kernel.event_listener, event: sonata.admin.event.persistence.post_persist, method: create }
-        calls:
-            - [setContainer, ["@service_container"]]
-
-    amg_admin_logger.events.pre_update:
-        class: Ai\AdminBundle\EventListener\AdminEventListener
-        tags:
-            - { name: kernel.event_listener, event: sonata.admin.event.persistence.pre_update, method: update }
-        calls:
-            - [setContainer, ["@service_container"]]
-
-    amg_admin_logger.events.pre_remove:
-        class: Ai\AdminBundle\EventListener\AdminEventListener
-        tags:
-            - { name: kernel.event_listener, event: sonata.admin.event.persistence.pre_remove, method: remove }
-        calls:
-            - [setContainer, ["@service_container"]]
+        class: Ai\AdminBundle\Services\ImageManager
+        arguments:
+            - '@liip_imagine.cache.manager'
+            - '@liip_imagine.data.manager'
+            - '@liip_imagine.filter.manager'
+            - '@oneup_uploader.orphanage_manager'
+            - '@filesystem'
+            - '%kernel.root_dir%'
 
     ai_admi.upload_listener:
-            class: Ai\AdminBundle\EventListener\UploaderListener
-            tags:
-                - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: onUpload }
+        class: Ai\AdminBundle\EventListener\UploaderListener
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: onUpload }
 
     ai_admin.form.type.image_uploader:
         class: Ai\AdminBundle\Form\Type\ImageUploaderType
         arguments:
+            - "@ai_gallery.image_manager"
             - "%form.ai_admin_image_uploader%"
         tags:
             - { name: form.type, alias: ai_admin_image_uploader }
