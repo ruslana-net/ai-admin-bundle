@@ -109,6 +109,14 @@ class DefaultAdmin extends Admin
             $datagridMapper->add('price');
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\PhoneTrait')){
+            $datagridMapper->add('phone');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\CodeTrait')){
+            $datagridMapper->add('code');
+        }
+
         if($this->hasTrait('Ai\AdminBundle\Model\CrdateTrait')){
             $datagridMapper->add('crdate', 'doctrine_orm_date_range', array(), 'sonata_type_date_range',
                 array(
@@ -172,6 +180,14 @@ class DefaultAdmin extends Admin
 
         if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
             $formMapper->add('price');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PhoneTrait')){
+            $formMapper->add('phone');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\CodeTrait')){
+            $formMapper->add('code');
         }
 
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){
@@ -253,6 +269,14 @@ class DefaultAdmin extends Admin
         if($this->hasTrait('Ai\AdminBundle\Model\PaidTrait')){
             $listMapper->add('paid', null, ['editable' => true]);
         }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PhoneTrait')){
+            $listMapper->add('phone');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\CodeTrait')){
+            $listMapper->add('code');
+        }
         
         if($this->configureListWithourActions === false){
             self::configureListAction($listMapper);
@@ -316,6 +340,14 @@ class DefaultAdmin extends Admin
 
         if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
             $showMapper->add('price');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\PhoneTrait')){
+            $showMapper->add('phone');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\CodeTrait')){
+            $showMapper->add('code');
         }
 
         if($this->hasTrait('Ai\CmsCoreBundle\Model\FilesTrait')){

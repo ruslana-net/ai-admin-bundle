@@ -20,6 +20,7 @@ class BeUserAdmin extends DefaultAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('groups')
             ->add('id')
             ->add('username', null)
             ->add('email', null)
@@ -47,6 +48,7 @@ class BeUserAdmin extends DefaultAdmin
             ->add('lastName', null)
             ->add('phone', null)
             ->add('skype', null)
+            ->add('groups', null)
             ->add('enabled', null, ['editable' => true])
             ->add('_action', 'actions', [
                 'actions' =>[
@@ -79,10 +81,10 @@ class BeUserAdmin extends DefaultAdmin
                 'options' => ['label' => 'form.label_password'],
             ])
             ->add('groups', null)
-            ->add('roles', 'choice', [
-                'choices' => BeUser::$ADMIN_ROLES,
-                'multiple'  => true
-            ])
+//            ->add('roles', 'choice', [
+//                'choices' => BeUser::$ADMIN_ROLES,
+//                'multiple'  => true
+//            ])
             ->add('firstName', null, ['required' => false])
             ->add('lastName', null, ['required' => false])
             ->add('phone', null, ['required' => false])
