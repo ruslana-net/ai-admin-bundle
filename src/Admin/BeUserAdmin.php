@@ -41,7 +41,6 @@ class BeUserAdmin extends DefaultAdmin
             ->add('email', null)
             ->add('avatar', 'ai_admin_image_uploader', [
                 'oneup_uploader_id' => 'be_user_avatar',
-                'required' => false,
                 'template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'
             ])
             ->add('firstName', null)
@@ -64,20 +63,17 @@ class BeUserAdmin extends DefaultAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $passwordRequired = $this->getSubject()->getId() ? false : true;
+
         $formMapper
             ->add('username', null)
             ->add('email', 'email')
-//            ->add('avatar', 'file', $this->getFileOptions([
-//                'oneup_uploader_id' => 'be_user_avatar',
-//                'label' => 'form.label_avatar',
-//                'required' => false
-//            ]))
             ->add('avatar', 'ai_admin_image_uploader', [
                 'oneup_uploader_id' => 'be_user_avatar',
                 'required' => false,
             ])
             ->add('plainPassword', 'repeated', [
-                'required' => false,
+                'required' => $passwordRequired,
                 'type' => 'password',
                 'invalid_message' => 'Введите пароль повторно.',
                 'options' => ['label' => 'form.label_password'],
@@ -106,6 +102,10 @@ class BeUserAdmin extends DefaultAdmin
             ->add('id')
             ->add('username', null)
             ->add('email', null)
+            ->add('avatar', 'ai_admin_image_uploader', [
+                'oneup_uploader_id' => 'be_user_avatar',
+                'template' => 'AiAdminBundle:Admin:image_preview_show.html.twig'
+            ])
             ->add('firstName', null)
             ->add('lastName', null)
             ->add('phone', null)
