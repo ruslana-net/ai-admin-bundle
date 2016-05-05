@@ -50,14 +50,11 @@ class BeUserAdmin extends DefaultAdmin
             ->add('skype', null)
             ->add('groups', null)
             ->add('enabled', null, ['editable' => true])
-            ->add('_action', 'actions', [
-                'actions' =>[
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ]
-            ])
         ;
+
+        if($this->configureListWithourActions === false){
+            self::configureListAction($listMapper);
+        }
     }
 
     /**
