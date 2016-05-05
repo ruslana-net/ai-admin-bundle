@@ -99,6 +99,8 @@ list: &labels
     label_date_to: Дата до
     label_test: Тест
     label_user : Пользователь
+    label_code : Код
+    label_phone : Телефон
 
 filter:
     << : *labels

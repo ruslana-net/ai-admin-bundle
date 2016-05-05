@@ -103,6 +103,13 @@ class BeUser extends BaseUser
     private $avatar;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="account", type="integer", nullable=true)
+     */
+    private $account;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="hide_left_menu", type="boolean")
@@ -375,5 +382,29 @@ class BeUser extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Set account
+     *
+     * @param integer $account
+     *
+     * @return BeUser
+     */
+    public function setAccount($account)
+    {
+        $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return integer
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 }

@@ -1,18 +1,18 @@
 services:
     ai_admin.be_user:
-            class: Ai\AdminBundle\Admin\BeUserAdmin
-            arguments: [~, Ai\AdminBundle\Entity\BeUser, AiAdminBundle:Admin]
-            tags:
-                -
-                    name: sonata.admin
-                    manager_type: orm
-                    group: settings
-                    label: breadcrumb.link_be_user_list
-                    label_translator_strategy: sonata.admin.label.strategy.underscore
-                    autoadmin: true
-            calls:
-                - [ setContainer, [ "@service_container" ] ]
-                - [ setPositionService, ["@pix_sortable_behavior.position"]]
+        class: Ai\AdminBundle\Admin\BeUserAdmin
+        arguments: [~, Ai\AdminBundle\Entity\BeUser, AiAdminBundle:Admin]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: settings
+                label: breadcrumb.link_be_user_list
+                label_translator_strategy: sonata.admin.label.strategy.underscore
+                autoadmin: true
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+            - [ setPositionService, ["@pix_sortable_behavior.position"]]
 
     ai_admin.be_group:
         class: Ai\AdminBundle\Admin\BeGroupAdmin
