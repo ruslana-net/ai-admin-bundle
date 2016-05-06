@@ -106,7 +106,7 @@ class DefaultAdmin extends Admin
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\PriceTrait')){
-            $datagridMapper->add('price');
+            $datagridMapper->add('price', 'doctrine_orm_number');
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\PhoneTrait')){
@@ -648,7 +648,7 @@ class DefaultAdmin extends Admin
      */
     protected function hasTrait($traitClass)
     {
-        return array_key_exists($traitClass, $this->getClassUses());
+        return (bool) array_key_exists($traitClass, $this->getClassUses());
     }
 
     /**
@@ -658,10 +658,6 @@ class DefaultAdmin extends Admin
      */
     protected function getClassUses()
     {
-        if(!empty(self::$classTraites)){
-            return self::$classTraites;
-        }
-
         return self::$classTraites = class_uses($this->getClass());
     }
 
