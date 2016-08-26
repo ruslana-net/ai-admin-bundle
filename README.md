@@ -187,6 +187,19 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
+                
+#File Uploader
+oneup_uploader:
+    orphanage:
+        maxage: 86400
+        directory: "%kernel.cache_dir%/uploader/orphanage"
+    mappings:
+        be_user_avatar:
+            frontend: fineuploader
+            use_orphanage: true
+            route_prefix: admin
+            enable_cancelation: true
+            
 ```
 
 ### Add to file app/config/security.yml
