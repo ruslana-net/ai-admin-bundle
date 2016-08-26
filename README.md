@@ -186,7 +186,11 @@ liip_imagine:
         admin_thumb:
             quality: 100
             filters:
-                thumbnail: { size: [120, 90], mode: outbound }
+                thumbnail: { size: [120, 100], mode: outbound }
+        be_user_avatar:
+            quality: 100
+            filters:
+                thumbnail: { size: [250, 200], mode: outbound }
                 
 #File Uploader
 oneup_uploader:
