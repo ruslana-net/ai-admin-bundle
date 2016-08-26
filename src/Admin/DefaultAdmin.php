@@ -198,6 +198,13 @@ class DefaultAdmin extends Admin
             //TODO
         }
 
+        if($this->hasTrait('Ai\AdminBundle\Model\ImageTrait')){
+            $formMapper->add('image', 'ai_admin_image_uploader', [
+                'oneup_uploader_id' => $this->getImageFilterName(),
+                'required' => false,
+            ]);
+        }
+
         if($this->hasTrait('Ai\AdminBundle\Model\FileTrait')){
             //TODO
         }
@@ -276,6 +283,17 @@ class DefaultAdmin extends Admin
 
         if($this->hasTrait('Ai\AdminBundle\Model\CodeTrait')){
             $listMapper->add('code');
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\ImageTrait')){
+            $listMapper->add('image', 'ai_admin_image_uploader', [
+                'oneup_uploader_id' => $this->getImageFilterName(),
+                'template' => 'AiAdminBundle:Admin:image_preview_list.html.twig'
+            ]);
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\FileTrait')){
+            //TODO
         }
         
         if($this->configureListWithourActions === false){
@@ -356,6 +374,13 @@ class DefaultAdmin extends Admin
 
         if($this->hasTrait('Ai\CmsCoreBundle\Model\ImagesTrait')){
             //TODO
+        }
+
+        if($this->hasTrait('Ai\AdminBundle\Model\ImageTrait')){
+            $showMapper->add('image', 'ai_admin_image_uploader', [
+                'oneup_uploader_id' => $this->getImageFilterName(),
+                'template' => 'AiAdminBundle:Admin:image_preview_show.html.twig'
+            ]);
         }
 
         if($this->hasTrait('Ai\AdminBundle\Model\FileTrait')){
@@ -671,5 +696,15 @@ class DefaultAdmin extends Admin
         } catch(\RuntimeException $e) {
             //Catch Unable to found a valid admin for the class: %s, get too many admin
         }
+    }
+
+    /**
+     * Get uploaded image path
+     *
+     * @return mixed
+     */
+    protected function getImageFilterName()
+    {
+        return str_replace('.', '_', $this->getCode());
     }
 } 
