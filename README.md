@@ -186,7 +186,24 @@ liip_imagine:
         admin_thumb:
             quality: 100
             filters:
-                thumbnail: { size: [120, 90], mode: outbound }
+                thumbnail: { size: [120, 100], mode: outbound }
+        be_user_avatar:
+            quality: 100
+            filters:
+                thumbnail: { size: [250, 200], mode: outbound }
+                
+#File Uploader
+oneup_uploader:
+    orphanage:
+        maxage: 86400
+        directory: "%kernel.cache_dir%/uploader/orphanage"
+    mappings:
+        be_user_avatar:
+            frontend: fineuploader
+            use_orphanage: true
+            route_prefix: admin
+            enable_cancelation: true
+            
 ```
 
 ### Add to file app/config/security.yml
@@ -256,6 +273,10 @@ security:
 ...
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+_oneup_uploader:
+    resource: .
+    type: uploader
     
 ai_admin:
     resource: "@AiAdminBundle/Resources/config/routing.yml"
