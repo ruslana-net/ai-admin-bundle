@@ -269,6 +269,10 @@ security:
 ...
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+_oneup_uploader:
+    resource: .
+    type: uploader
     
 ai_admin:
     resource: "@AiAdminBundle/Resources/config/routing.yml"
